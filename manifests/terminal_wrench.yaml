@@ -1,0 +1,233 @@
+# Terminal Wrench — representative sample (15 of 331 tasks).
+#
+# Layout in the upstream repo (https://github.com/few-sh/terminal-wrench):
+#   tasks/<task_id>/<model>/original_task/{instruction.md,tests,solution,environment/Dockerfile,task.toml}
+# The original_task tree is the Terminal-Bench environment. It is duplicated
+# under each model directory; we pin path to the claude-opus-4.6 copy.
+#
+# Full catalog for later programmatic expansion:
+#   index/tasks.json              — one row per task/model entry (~18 MB)
+#   task_source_datasets.json     — task_id → source benchmark(s)
+#   dataset_manifest.json         — aggregate counts
+#
+# Difficulty labels come from original_task/task.toml [metadata].difficulty.
+# Docker images are not published; Core's TerminalAdapter needs a prebuilt
+# `image` in adapter_config once images are built from environment/Dockerfile.
+
+source_defaults:
+  type: git
+  url: https://github.com/few-sh/terminal-wrench
+  commit: d8a29613235a0ef56a8b70b3142626a533da28c2
+
+entries:
+  # --- easy ---
+  - name: cobol-modernization
+    path: tasks/cobol-modernization/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: easy
+      category: software-engineering
+
+  - name: simple-web-scraper
+    path: tasks/simple-web-scraper/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: easy
+      category: data-science
+
+  - name: train-fraud-detection-model
+    path: tasks/train-fraud-detection-model/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 360
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: easy
+      category: machine-learning
+
+  - name: polyglot-prime-generator
+    path: tasks/polyglot-prime-generator/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 360
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: easy
+      category: software-engineering
+
+  # --- medium ---
+  - name: git-multibranch
+    path: tasks/git-multibranch/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: terminal-bench__2.0
+      difficulty: medium
+      category: system-administration
+
+  - name: pypi-server
+    path: tasks/pypi-server/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: terminal-bench__2.0
+      difficulty: medium
+      category: software-engineering
+
+  - name: tmux-advanced-workflow
+    path: tasks/tmux-advanced-workflow/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: medium
+      category: debugging
+
+  - name: vul-flask
+    path: tasks/vul-flask/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: medium
+      category: security
+
+  - name: schemelike-metacircular-eval
+    path: tasks/schemelike-metacircular-eval/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 300
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: terminal-bench__2.0
+      difficulty: medium
+      category: software-engineering
+
+  # --- hard ---
+  - name: cartpole-rl-training
+    path: tasks/cartpole-rl-training/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: hard
+      category: model-training
+
+  - name: buffer-overflow-exploit
+    path: tasks/buffer-overflow-exploit/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 3600
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: OpenThoughts-TB-dev
+      difficulty: hard
+      category: system_administration
+
+  - name: regex-chess
+    path: tasks/regex-chess/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 600
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: TerminalBench-original
+      difficulty: hard
+      category: software-engineering
+
+  # --- terminal-bench-pro ---
+  - name: analyze-arm-shellcode-network-connections
+    path: tasks/analyze-arm-shellcode-network-connections/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: terminal-bench-pro
+      category: security
+
+  # --- seta numeric ids ---
+  - name: seta-104
+    path: tasks/104/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: seta_2026_01_29
+      upstream_task_id: "104"
+
+  - name: seta-1018
+    path: tasks/1018/claude-opus-4.6/original_task
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 180
+      dockerfile: environment/Dockerfile
+    metadata:
+      source_benchmark: seta_2026_01_29
+      upstream_task_id: "1018"
