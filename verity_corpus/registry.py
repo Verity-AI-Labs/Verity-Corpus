@@ -176,3 +176,32 @@ class CorpusRegistry:
         updated = entry.model_copy(update={"status": status})
         self._entries[env_id] = updated
         return updated
+
+    def export_for_core(self, output_dir: Path) -> list[Path]:
+        """Write Core-compatible flat YAML manifests into ``output_dir``.
+
+        Each source manifest becomes one YAML file containing a list of mappings
+        with the fields :func:`verity_core.corpus.load_corpus` requires: ``id``,
+        ``format``, ``domain`` (mapped onto Core's Domain), ``source``, ``commit``,
+        ``instructions``, plus flattened ``adapter_config``.
+        """
+        from verity_corpus.resolver import core_manifest
+
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        grouped: dict[str, list[ManifestEntry]] = {}
+        for entry in self.all():
+            stem = Path(self._files.get(entry.id, "manual.yaml")).stem
+            grouped.setdefault(stem, []).append(entry)
+
+        written: list[Path] = []
+        for stem, entries in grouped.items():
+            payload = [core_manifest(entry) for entry in entries]
+            path = output_dir / f"{stem}.yaml"
+            path.write_text(
+                yaml.safe_dump(payload, sort_keys=False, allow_unicode=True),
+                encoding="utf-8",
+            )
+            written.append(path)
+        return written

@@ -151,3 +151,22 @@ class TestCorpusRegistryDuplicatesAndAdd:
         on_disk = yaml.safe_load((tmp_path / "bench.yaml").read_text(encoding="utf-8"))
         statuses = [e.get("status") for e in on_disk["entries"]]
         assert "fetched" not in statuses
+
+    def test_export_for_core_writes_flat_list(self, tmp_path: Path) -> None:
+        _write(tmp_path, "bench.yaml", SHARED_YAML)
+        registry = CorpusRegistry(tmp_path)
+        out = tmp_path / "core"
+        paths = registry.export_for_core(out)
+        assert len(paths) == 1
+        exported = yaml.safe_load(paths[0].read_text(encoding="utf-8"))
+        assert isinstance(exported, list)
+        assert {row["format"] for row in exported} == {"terminal", "docker_test"}
+        domains = {row["domain"] for row in exported}
+        assert "tool_use" in domains
+        assert "browser" in domains
+        for row in exported:
+            assert "id" in row and "format" in row
+            assert "source" in row and "commit" in row
+            assert "instructions" in row
+            assert "entries" not in row
+            assert "source_defaults" not in row
