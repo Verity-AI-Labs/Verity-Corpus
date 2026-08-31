@@ -40,3 +40,6 @@ allow-direct-references = true
 testpaths = ["tests"]
 addopts = "-q"
 pythonpath = ["."]
+markers = [
+    "integration: tests that import verity-core and exercise the Corpus/Core bridge",
+]
