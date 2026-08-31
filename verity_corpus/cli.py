@@ -59,7 +59,13 @@ def add(
     subcategory: Optional[str] = typer.Option(None, "--subcategory"),
     manifest_file: str = typer.Option("manual.yaml", "--manifest-file"),
     adapter_config: Optional[str] = typer.Option(
-        None, "--adapter-config", help="JSON object of adapter-specific parameters."
+        None,
+        "--adapter-config",
+        help=(
+            "JSON object of adapter-specific parameters. For terminal and "
+            "docker_test adapters this must include an 'image' key (the prebuilt "
+            "Docker image Core's ContainerEnv requires)."
+        ),
     ),
 ) -> None:
     """Register an environment and write it to a manifest YAML file."""
