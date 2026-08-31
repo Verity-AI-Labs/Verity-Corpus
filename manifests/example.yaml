@@ -1,0 +1,17 @@
+source_defaults:
+  type: git
+  url: https://github.com/few-sh/terminal-wrench
+  commit: null  # unpinned for example purposes
+
+entries:
+  - name: "Example Terminal Environment"
+    path: "."
+    domain:
+      category: terminal
+      subcategory: bash
+    adapter: terminal
+    adapter_config:
+      timeout: 120
+    metadata:
+      source_benchmark: "Terminal Wrench"
+      notes: "Example entry for testing corpus setup"
