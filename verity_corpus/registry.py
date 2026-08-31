@@ -183,7 +183,8 @@ class CorpusRegistry:
         Each source manifest becomes one YAML file containing a list of mappings
         with the fields :func:`verity_core.corpus.load_corpus` requires: ``id``,
         ``format``, ``domain`` (mapped onto Core's Domain), ``source``, ``commit``,
-        ``instructions``, plus flattened ``adapter_config``.
+        ``instructions``, plus flattened ``adapter_config``. Catalog entries are
+        omitted — they are not loadable as ``VerityEnv``s.
         """
         from verity_corpus.resolver import core_manifest
 
@@ -192,6 +193,8 @@ class CorpusRegistry:
 
         grouped: dict[str, list[ManifestEntry]] = {}
         for entry in self.all():
+            if entry.status == "catalog":
+                continue
             stem = Path(self._files.get(entry.id, "manual.yaml")).stem
             grouped.setdefault(stem, []).append(entry)
 

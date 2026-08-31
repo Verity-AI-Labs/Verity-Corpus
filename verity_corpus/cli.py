@@ -18,8 +18,8 @@ from verity_corpus.resolver import ResolveError, resolve as resolve_entry
 
 app = typer.Typer(help="Verity-Corpus: manifest-driven environment registry.")
 
-_STATUS_COLUMNS = ("registered", "fetched", "auditing", "audited", "broken")
-_STATUS_HEADERS = ("Registered", "Fetched", "Auditing", "Audited", "Broken")
+_STATUS_COLUMNS = ("registered", "fetched", "auditing", "audited", "broken", "catalog")
+_STATUS_HEADERS = ("Registered", "Fetched", "Auditing", "Audited", "Broken", "Catalog")
 
 
 def _registry() -> CorpusRegistry:
@@ -146,7 +146,11 @@ def fetch(
         entries = [found]
 
     failures = 0
+    explicit = env_id is not None
     for entry in entries:
+        if entry.status == "catalog" and not explicit:
+            typer.echo(f"Skipping catalog entry {entry.name}")
+            continue
         typer.echo(f"Fetching {entry.name} ({entry.id})...", nl=False)
         try:
             fetch_entry(entry)
