@@ -77,6 +77,18 @@ class TestManifestEntryId:
         assert entry.id == compute_entry_id(entry.source)
         assert entry.id != "not-the-real-id"
 
+    def test_catalog_is_a_valid_status(self) -> None:
+        entry = ManifestEntry.create(
+            name="bench-pointer",
+            source=_source(path="data/split.parquet"),
+            domain=DomainTag(category="code"),
+            adapter="docker_test",
+            status="catalog",
+            metadata={"individual_count": 349},
+        )
+        assert entry.status == "catalog"
+        assert entry.metadata["individual_count"] == 349
+
     def test_math_is_a_valid_domain_category(self) -> None:
         entry = ManifestEntry.create(
             name="math-env",

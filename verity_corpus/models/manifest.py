@@ -4,6 +4,10 @@
 same environment at the same revision always receives the same identifier.
 Callers must not set it by hand; use :meth:`ManifestEntry.create` or let the
 validator compute it.
+
+``status="catalog"`` marks a benchmark-level pointer (a parquet split, a task
+factory, a generator script). Catalog entries are not individually auditable
+environments; ``fetch --all`` skips them.
 """
 
 from __future__ import annotations
@@ -16,7 +20,7 @@ from pydantic import BaseModel, Field, model_validator
 
 SourceType = Literal["git", "local"]
 DomainCategory = Literal["terminal", "browser", "gui", "code", "api", "math", "other"]
-EntryStatus = Literal["registered", "fetched", "auditing", "audited", "broken"]
+EntryStatus = Literal["registered", "fetched", "auditing", "audited", "broken", "catalog"]
 
 __all__ = [
     "DomainCategory",
@@ -58,7 +62,11 @@ class DomainTag(BaseModel):
 
 
 class ManifestEntry(BaseModel):
-    """The atomic unit of the corpus: one environment at one pinned revision."""
+    """One environment at one pinned revision, or a catalog pointer.
+
+    Catalog entries (``status="catalog"``) record where a benchmark's data lives
+    without claiming that ``path`` is a resolvable ``VerityEnv``.
+    """
 
     id: str = ""
     name: str

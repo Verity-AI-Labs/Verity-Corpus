@@ -11,6 +11,10 @@
 # entries: list of environments. Each entry may set:
 #   name, path, type, url, commit, source (nested SourceSpec),
 #   domain.category, domain.subcategory,
-#   adapter, adapter_config, metadata, status
+#   adapter, adapter_config, metadata,
+#   status: registered | fetched | auditing | audited | broken | catalog
+#     catalog = benchmark-level pointer, not an auditable environment;
+#     skipped by fetch --all. metadata.individual_count notes how many
+#     real environments the pointer represents.
 source_defaults: {}
 entries: []
