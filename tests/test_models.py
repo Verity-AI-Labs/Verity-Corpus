@@ -1,18 +1,14 @@
-"""Tests for manifest, scorecard, and VRC data models."""
+"""Tests for manifest and VRC data models."""
 
 from __future__ import annotations
 
-import json
 from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID
 
 from verity_corpus.models import (
-    ALL_AXES,
-    AxisScore,
     DomainTag,
     ManifestEntry,
-    ScoreCard,
     SourceSpec,
     VRCEntry,
     compute_entry_id,
@@ -80,41 +76,6 @@ class TestManifestEntryId:
         )
         assert entry.id == compute_entry_id(entry.source)
         assert entry.id != "not-the-real-id"
-
-
-class TestScoreCard:
-    def test_empty_creates_all_14_axes_unscored(self) -> None:
-        card = ScoreCard.empty("abc123def456")
-        assert len(card.axes) == 14
-        assert set(card.axes) == set(ALL_AXES)
-        for axis, score in card.axes.items():
-            assert score.value is None, axis
-            assert score.confidence is None, axis
-            assert score.evidence == []
-            assert score.measured_at is None
-
-    def test_json_round_trip_preserves_none(self, tmp_path: Path) -> None:
-        card = ScoreCard.empty("env1")
-        card.axes["V1"] = AxisScore(value=0.0, confidence=1.0)
-        card.save(tmp_path)
-        loaded = ScoreCard.load(tmp_path, "env1")
-        assert loaded.axes["V1"].value == 0.0
-        assert loaded.axes["V2"].value is None
-        raw = json.loads((tmp_path / "env1.json").read_text(encoding="utf-8"))
-        assert raw["axes"]["V2"]["value"] is None
-        assert "V2" in raw["axes"]
-
-    def test_none_and_zero_are_distinguishable_after_serialization(self) -> None:
-        unscored = AxisScore(value=None).model_dump(mode="json")
-        zero = AxisScore(value=0.0).model_dump(mode="json")
-        assert unscored["value"] is None
-        assert zero["value"] == 0.0
-        assert json.dumps(unscored) != json.dumps(zero)
-        assert "null" in json.dumps(unscored)
-        round_none = AxisScore.model_validate(unscored)
-        round_zero = AxisScore.model_validate(zero)
-        assert round_none.value is None
-        assert round_zero.value == 0.0
 
 
 class TestVRCEntry:

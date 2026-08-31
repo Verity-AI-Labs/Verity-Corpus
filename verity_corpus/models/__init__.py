@@ -1,4 +1,8 @@
-"""Pydantic data models for manifests, scorecards, and VRC entries."""
+"""Pydantic data models for manifests and VRC entries.
+
+Scorecards are Core's :class:`~verity_core.scorecard.Scorecard`; they are not
+re-exported here so this package can be imported without verity-core installed.
+"""
 
 from verity_corpus.models.manifest import (
     DomainCategory,
@@ -9,25 +13,13 @@ from verity_corpus.models.manifest import (
     SourceType,
     compute_entry_id,
 )
-from verity_corpus.models.scorecard import (
-    ALL_AXES,
-    UTILITY_AXES,
-    VALIDITY_AXES,
-    AxisScore,
-    ScoreCard,
-)
 from verity_corpus.models.vrc import VRCEntry
 
 __all__ = [
-    "ALL_AXES",
-    "UTILITY_AXES",
-    "VALIDITY_AXES",
-    "AxisScore",
     "DomainCategory",
     "DomainTag",
     "EntryStatus",
     "ManifestEntry",
-    "ScoreCard",
     "SourceSpec",
     "SourceType",
     "VRCEntry",
