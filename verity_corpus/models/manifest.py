@@ -15,7 +15,7 @@ from typing import Any, Literal, Self
 from pydantic import BaseModel, Field, model_validator
 
 SourceType = Literal["git", "local"]
-DomainCategory = Literal["terminal", "browser", "gui", "code", "api", "other"]
+DomainCategory = Literal["terminal", "browser", "gui", "code", "api", "math", "other"]
 EntryStatus = Literal["registered", "fetched", "auditing", "audited", "broken"]
 
 __all__ = [

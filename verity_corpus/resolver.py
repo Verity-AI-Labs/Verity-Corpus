@@ -32,6 +32,7 @@ _DOMAIN_TO_CORE: dict[str, str] = {
     "gui": "gui",
     "code": "code",
     "api": "other",
+    "math": "math",
     "other": "other",
 }
 

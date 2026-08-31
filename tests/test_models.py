@@ -77,6 +77,15 @@ class TestManifestEntryId:
         assert entry.id == compute_entry_id(entry.source)
         assert entry.id != "not-the-real-id"
 
+    def test_math_is_a_valid_domain_category(self) -> None:
+        entry = ManifestEntry.create(
+            name="math-env",
+            source=_source(path="math/foo"),
+            domain=DomainTag(category="math", subcategory="olympiad"),
+            adapter="verifiers",
+        )
+        assert entry.domain.category == "math"
+
 
 class TestVRCEntry:
     def test_create_assigns_uuid4(self) -> None:
