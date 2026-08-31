@@ -1,0 +1,16 @@
+# Documented shape of a corpus manifest YAML file.
+# Validation is performed by the Pydantic models in verity_corpus.models.manifest;
+# this file is a human-readable reference, not an enforced schema.
+#
+# source_defaults: optional dict merged into every entry's source fields.
+#   type: git | local
+#   url: git URL (required for type=git)
+#   commit: pinned hash, or null for HEAD (discouraged)
+#   path: path within the repo / local filesystem to the environment root
+#
+# entries: list of environments. Each entry may set:
+#   name, path, type, url, commit, source (nested SourceSpec),
+#   domain.category, domain.subcategory,
+#   adapter, adapter_config, metadata, status
+source_defaults: {}
+entries: []

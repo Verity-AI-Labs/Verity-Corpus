@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Cached environment clones — never commit fetched sources
+cache/*
+!cache/.gitignore
