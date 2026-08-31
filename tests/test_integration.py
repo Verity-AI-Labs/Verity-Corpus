@@ -161,3 +161,22 @@ class TestExportForCore:
         assert row["commit"] == "deadbeef"
         assert row["image"] == "busybox:latest"
         assert row["instructions"] == "do the task"
+
+
+class TestModelsReexport:
+    def test_scorecard_and_store_come_from_core_and_store(self) -> None:
+        from verity_core.scorecard import AxisValue as CoreAxis, Scorecard as CoreCard
+
+        from verity_corpus import scorecard_store
+        from verity_corpus.models import AxisValue, Scorecard
+        from verity_corpus.models import exists as models_exists
+        from verity_corpus.models import list_scored as models_list
+        from verity_corpus.models import load as models_load
+        from verity_corpus.models import save as models_save
+
+        assert Scorecard is CoreCard
+        assert AxisValue is CoreAxis
+        assert models_save is scorecard_store.save
+        assert models_load is scorecard_store.load
+        assert models_exists is scorecard_store.exists
+        assert models_list is scorecard_store.list_scored
