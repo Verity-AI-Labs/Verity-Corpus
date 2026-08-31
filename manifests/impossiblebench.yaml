@@ -1,15 +1,17 @@
-# ImpossibleBench — representative sample.
+# ImpossibleBench — catalog pointers, not auditable environments.
 #
-# Two sources, both real:
-#   GitHub harness: https://github.com/safety-research/impossiblebench
-#   HuggingFace data (git): https://huggingface.co/datasets/fjzzq2002/impossible_*
+# GitHub harness: https://github.com/safety-research/impossiblebench
+# HuggingFace data (git): https://huggingface.co/datasets/fjzzq2002/impossible_*
 #
 # Splits: original (solvable control), oneoff, conflicting (judge-free precision
 # floor — a pass is necessarily a test-case exploit).
 #
-# Full instance lists (349 SWE + 103 LCB per split) are the parquet files
-# below. Generate per-instance corpus entries from those later; ids must
-# include the instance_id because (url, path, commit) of a parquet is shared.
+# These paths are Python task factories and parquet splits. fetch/resolve cannot
+# turn them into a VerityEnv. status is catalog so fetch --all skips them.
+# Per-instance expansion (one ManifestEntry per SWE/LCB instance) requires
+# scripts/gen_impossiblebench.py, which is a stub until a Core adapter can
+# load swebench/sweb.eval.{arch}.{id}:latest (or Inspect LCB compose) as a
+# docker_test environment. Do not invent env roots for the parquet rows.
 
 entries:
   - name: impossible-swebench-harness
@@ -24,9 +26,11 @@ entries:
     adapter: docker_test
     adapter_config:
       timeout: 600
+    status: catalog
     metadata:
       inspect_task: impossible_swebench
-      notes: Inspect task factory. Images are swebench/sweb.eval.{arch}.{id}:latest.
+      individual_count: 1047
+      notes: Inspect task factory wrapping three SWE-bench splits of 349. Images are swebench/sweb.eval.{arch}.{id}:latest.
 
   - name: impossible-livecodebench-harness
     source:
@@ -41,9 +45,12 @@ entries:
     adapter_config:
       timeout: 120
       image: aisiuk/inspect-tool-support
+    status: catalog
     metadata:
       inspect_task: impossible_livecodebench
       compose: src/impossiblebench/compose.yaml
+      individual_count: 309
+      notes: Inspect task factory wrapping three LiveCodeBench splits of 103.
 
   - name: impossible-swebench-conflicting
     source:
@@ -57,9 +64,10 @@ entries:
     adapter: docker_test
     adapter_config:
       timeout: 600
+    status: catalog
     metadata:
       split: conflicting
-      n_instances: 349
+      individual_count: 349
       sample_instance_ids:
         - astropy__astropy-12907
         - astropy__astropy-13579
@@ -78,9 +86,10 @@ entries:
     adapter: docker_test
     adapter_config:
       timeout: 600
+    status: catalog
     metadata:
       split: oneoff
-      n_instances: 349
+      individual_count: 349
 
   - name: impossible-swebench-original
     source:
@@ -94,9 +103,10 @@ entries:
     adapter: docker_test
     adapter_config:
       timeout: 600
+    status: catalog
     metadata:
       split: original
-      n_instances: 349
+      individual_count: 349
       notes: Solvable control split.
 
   - name: impossible-livecodebench-conflicting
@@ -112,9 +122,10 @@ entries:
     adapter_config:
       timeout: 120
       image: aisiuk/inspect-tool-support
+    status: catalog
     metadata:
       split: conflicting
-      n_instances: 103
+      individual_count: 103
       sample_task_ids: [lcbhard_0, lcbhard_4]
       notes: Precision-floor split. Passing implies a specification-violating shortcut.
 
@@ -131,9 +142,10 @@ entries:
     adapter_config:
       timeout: 120
       image: aisiuk/inspect-tool-support
+    status: catalog
     metadata:
       split: oneoff
-      n_instances: 103
+      individual_count: 103
 
   - name: impossible-livecodebench-original
     source:
@@ -148,7 +160,8 @@ entries:
     adapter_config:
       timeout: 120
       image: aisiuk/inspect-tool-support
+    status: catalog
     metadata:
       split: original
-      n_instances: 103
+      individual_count: 103
       notes: Solvable control split.
