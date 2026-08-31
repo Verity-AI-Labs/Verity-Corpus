@@ -170,3 +170,38 @@ class TestCorpusRegistryDuplicatesAndAdd:
             assert "instructions" in row
             assert "entries" not in row
             assert "source_defaults" not in row
+
+    def test_export_for_core_skips_catalog_entries(self, tmp_path: Path) -> None:
+        _write(
+            tmp_path,
+            "mixed.yaml",
+            """\
+entries:
+  - name: real
+    source:
+      type: git
+      url: https://github.com/example/env
+      commit: abc
+      path: tasks/a
+    domain:
+      category: terminal
+    adapter: terminal
+    adapter_config:
+      image: busybox:latest
+  - name: pointer
+    source:
+      type: git
+      url: https://huggingface.co/datasets/example/split
+      commit: def
+      path: data/x.parquet
+    domain:
+      category: code
+    adapter: docker_test
+    status: catalog
+""",
+        )
+        registry = CorpusRegistry(tmp_path)
+        paths = registry.export_for_core(tmp_path / "core")
+        exported = yaml.safe_load(paths[0].read_text(encoding="utf-8"))
+        assert len(exported) == 1
+        assert exported[0]["instructions"] == "real"
