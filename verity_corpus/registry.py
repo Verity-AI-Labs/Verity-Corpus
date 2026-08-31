@@ -159,7 +159,7 @@ class CorpusRegistry:
             document = {"entries": []}
             entries = document["entries"]
 
-        dumped = entry.model_dump(mode="json")
+        dumped = entry.model_dump(mode="json", exclude={"id"})
         entries.append(dumped)
         path.write_text(
             yaml.safe_dump(document, sort_keys=False, allow_unicode=True),

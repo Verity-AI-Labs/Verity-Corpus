@@ -132,8 +132,11 @@ class TestCorpusRegistryDuplicatesAndAdd:
         registry.add_entry(entry, "manual.yaml")
         assert registry.by_id(entry.id) is entry
         written = yaml.safe_load((tmp_path / "manual.yaml").read_text(encoding="utf-8"))
-        assert written["entries"][0]["id"] == entry.id
-        assert written["entries"][0]["name"] == "new-env"
+        dumped = written["entries"][0]
+        assert "id" not in dumped
+        assert dumped["name"] == "new-env"
+        assert dumped["added_at"]
+        assert dumped["status"] == "registered"
         reloaded = CorpusRegistry(tmp_path)
         assert reloaded.by_id(entry.id) is not None
         assert reloaded.by_id(entry.id).name == "new-env"
