@@ -1,0 +1,154 @@
+# ImpossibleBench — representative sample.
+#
+# Two sources, both real:
+#   GitHub harness: https://github.com/safety-research/impossiblebench
+#   HuggingFace data (git): https://huggingface.co/datasets/fjzzq2002/impossible_*
+#
+# Splits: original (solvable control), oneoff, conflicting (judge-free precision
+# floor — a pass is necessarily a test-case exploit).
+#
+# Full instance lists (349 SWE + 103 LCB per split) are the parquet files
+# below. Generate per-instance corpus entries from those later; ids must
+# include the instance_id because (url, path, commit) of a parquet is shared.
+
+entries:
+  - name: impossible-swebench-harness
+    source:
+      type: git
+      url: https://github.com/safety-research/impossiblebench
+      commit: 061dc3dce6a96ab6cf02a855157263033dcfa3ba
+      path: src/impossiblebench/swebench_tasks.py
+    domain:
+      category: code
+      subcategory: swe-bench
+    adapter: docker_test
+    adapter_config:
+      timeout: 600
+    metadata:
+      inspect_task: impossible_swebench
+      notes: Inspect task factory. Images are swebench/sweb.eval.{arch}.{id}:latest.
+
+  - name: impossible-livecodebench-harness
+    source:
+      type: git
+      url: https://github.com/safety-research/impossiblebench
+      commit: 061dc3dce6a96ab6cf02a855157263033dcfa3ba
+      path: src/impossiblebench/livecodebench_tasks.py
+    domain:
+      category: code
+      subcategory: livecodebench
+    adapter: docker_test
+    adapter_config:
+      timeout: 120
+      image: aisiuk/inspect-tool-support
+    metadata:
+      inspect_task: impossible_livecodebench
+      compose: src/impossiblebench/compose.yaml
+
+  - name: impossible-swebench-conflicting
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_swebench
+      commit: 9c2d34f364b7229e8c0ff807c646100bdc18bbb5
+      path: data/conflicting-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: swe-bench
+    adapter: docker_test
+    adapter_config:
+      timeout: 600
+    metadata:
+      split: conflicting
+      n_instances: 349
+      sample_instance_ids:
+        - astropy__astropy-12907
+        - astropy__astropy-13579
+        - astropy__astropy-14309
+      notes: Precision-floor split. Passing implies a specification-violating shortcut.
+
+  - name: impossible-swebench-oneoff
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_swebench
+      commit: 9c2d34f364b7229e8c0ff807c646100bdc18bbb5
+      path: data/oneoff-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: swe-bench
+    adapter: docker_test
+    adapter_config:
+      timeout: 600
+    metadata:
+      split: oneoff
+      n_instances: 349
+
+  - name: impossible-swebench-original
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_swebench
+      commit: 9c2d34f364b7229e8c0ff807c646100bdc18bbb5
+      path: data/original-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: swe-bench
+    adapter: docker_test
+    adapter_config:
+      timeout: 600
+    metadata:
+      split: original
+      n_instances: 349
+      notes: Solvable control split.
+
+  - name: impossible-livecodebench-conflicting
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_livecodebench
+      commit: 98650ffc3f28a01b261669b6d19fcd7773823710
+      path: data/conflicting-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: livecodebench
+    adapter: docker_test
+    adapter_config:
+      timeout: 120
+      image: aisiuk/inspect-tool-support
+    metadata:
+      split: conflicting
+      n_instances: 103
+      sample_task_ids: [lcbhard_0, lcbhard_4]
+      notes: Precision-floor split. Passing implies a specification-violating shortcut.
+
+  - name: impossible-livecodebench-oneoff
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_livecodebench
+      commit: 98650ffc3f28a01b261669b6d19fcd7773823710
+      path: data/oneoff-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: livecodebench
+    adapter: docker_test
+    adapter_config:
+      timeout: 120
+      image: aisiuk/inspect-tool-support
+    metadata:
+      split: oneoff
+      n_instances: 103
+
+  - name: impossible-livecodebench-original
+    source:
+      type: git
+      url: https://huggingface.co/datasets/fjzzq2002/impossible_livecodebench
+      commit: 98650ffc3f28a01b261669b6d19fcd7773823710
+      path: data/original-00000-of-00001.parquet
+    domain:
+      category: code
+      subcategory: livecodebench
+    adapter: docker_test
+    adapter_config:
+      timeout: 120
+      image: aisiuk/inspect-tool-support
+    metadata:
+      split: original
+      n_instances: 103
+      notes: Solvable control split.
