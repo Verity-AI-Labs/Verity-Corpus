@@ -224,5 +224,22 @@ def export(
         typer.echo(str(path))
 
 
+@app.command("sync-status")
+def sync_status_cmd() -> None:
+    """Set in-memory status to audited for every env that has a scorecard on disk."""
+    from verity_corpus import config
+    from verity_corpus.results import sync_status
+
+    registry = _registry()
+    changed = sync_status(registry, config.SCORECARDS_DIR)
+    if not changed:
+        typer.echo("No status changes.")
+        return
+    for env_id, status in sorted(changed.items()):
+        entry = registry.by_id(env_id)
+        name = entry.name if entry is not None else ""
+        typer.echo(f"{env_id}  {name}  -> {status}")
+
+
 if __name__ == "__main__":
     app()
