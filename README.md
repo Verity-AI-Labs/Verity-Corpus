@@ -7,6 +7,10 @@ Corpus) exploit trajectories.
 Verity-Corpus is **not** a clone of environments. Manifest entries point at
 external git sources. Fetched checkouts live in `cache/` and are never committed.
 
+Git clones are **shared per `(url, commit)`** under `cache/repos/{hash}/`.
+An entry's environment root is `{shared_clone}/{entry.source.path}`, so 331
+Terminal Wrench tasks reuse one checkout instead of cloning the repo 331 times.
+
 ## Relationship to Verity-Core
 
 | | Corpus | Core |
@@ -23,42 +27,63 @@ The **resolver** is the only runtime coupling: `entry.adapter` → Core
 `load_env` → `VerityEnv`. Registry, fetcher, and manifest models load without
 Core installed; `resolve()` imports Core lazily.
 
+Core's `ContainerEnv` cannot build from a Dockerfile (TODO in Core). Terminal
+and `docker_test` entries must set `adapter_config.image` to a prebuilt tag.
+
 ## Pipeline
 
 ```
-manifest YAML  →  fetch (cache/)  →  resolve (Core adapter)
-                                         ↓
-                              Core tools (RedTeam, Signal, Clean, Stable)
-                                         ↓
-                    results.py  →  scorecards/*.json  and  vrc/entries/{env_id}/
-                                         ↓
-                              verity-corpus sync-status
+manifest YAML  →  fetch (cache/repos/{hash}/)  →  resolve (Core adapter)
+                                                      ↓
+                                           Core tools (RedTeam, Signal, Clean, Stable)
+                                                      ↓
+                             results.py  →  scorecards/*.json  and  vrc/entries/{env_id}/
+                                                      ↓
+                                           verity-corpus sync-status
 ```
 
 To feed Core's batch runner, export Corpus manifests into Core's flat YAML
-shape (`id`, `format`, `domain`, `source`, `commit`, plus adapter fields):
+shape (`id`, `format`, `domain`, `source`, `commit`, plus adapter fields).
+Catalog entries are omitted from the export.
 
 ```bash
 verity-corpus export --output-dir /tmp/core-manifests
 # Core:  load_corpus("/tmp/core-manifests")
 ```
 
-## Registered benchmarks (samples)
+## Registered benchmarks
 
-These are representative slices, not full dumps. Comments in each YAML file
-point at the upstream catalog to generate the rest later.
-
-| Manifest | Upstream | Sample | Full catalog |
+| Manifest | Upstream | Entries | Notes |
 | --- | --- | ---: | --- |
-| `manifests/terminal_wrench.yaml` | [few-sh/terminal-wrench](https://github.com/few-sh/terminal-wrench) @ `d8a2961` | 15 / 331 | `index/tasks.json`, `task_source_datasets.json` |
-| `manifests/impossiblebench.yaml` | [safety-research/impossiblebench](https://github.com/safety-research/impossiblebench) + HF splits | 8 | `fjzzq2002/impossible_swebench` (349×3), `fjzzq2002/impossible_livecodebench` (103×3) |
-| `manifests/trace.yaml` | [ScalingIntelligence/TRACE](https://github.com/ScalingIntelligence/TRACE) @ `d2db230` | 4 | generated `capability_*_game.py` + `scenarios_v4_all.json` after a TRACE run |
-| `manifests/example.yaml` | smoke-test entry | 1 | — |
+| `manifests/terminal_wrench.yaml` | [few-sh/terminal-wrench](https://github.com/few-sh/terminal-wrench) @ `d8a2961` | **331** (generated) | Auditable `terminal` tasks. Paths are `tasks/<id>/claude-opus-4.6/original_task`. Images: `verity-tw:<task_id>` after `scripts/build_images.py`. |
+| `manifests/impossiblebench.yaml` | [safety-research/impossiblebench](https://github.com/safety-research/impossiblebench) + HF splits | 8 **catalog** | Inspect factories + parquet splits (349 SWE × 3, 103 LCB × 3). Not `VerityEnv`s. |
+| `manifests/trace.yaml` | [ScalingIntelligence/TRACE](https://github.com/ScalingIntelligence/TRACE) @ `d2db230` | 4 **catalog** | GameEnv / synth scripts. Not `VerityEnv`s. |
+| `manifests/example.yaml` | smoke-test entry | 1 | Unpinned TW clone of `.` |
 
-Terminal Wrench paths are `tasks/<id>/claude-opus-4.6/original_task` (the real
-Terminal-Bench environment tree). ImpossibleBench task *data* is on HuggingFace
-parquet splits, not per-task directories in the Inspect repo. TRACE synthesizes
-GameEnvs; only one capability environment is checked in.
+`status: catalog` means “benchmark-level pointer.” `verity-corpus fetch --all`
+and `fetch --domain` skip those rows (`Skipping catalog entry {name}`). An
+explicit env id still fetches. Catalog rows are excluded from `export`.
+
+ImpossibleBench and TRACE need **Core adapter work** before per-instance
+auditing is possible (SWE instance images + Inspect grading; TRACE `GameSpec`
+wrapped as `VerityEnv`). The stub generators document that expansion; they
+do not write fake env roots.
+
+## Scripts
+
+```bash
+# After fetching Terminal Wrench, build the tags Core's TerminalAdapter needs.
+# Does not run as part of the library. Requires Docker.
+python scripts/build_images.py --repo-root cache/repos/<hash>
+python scripts/build_images.py --repo-root /path/to/terminal-wrench --dry-run
+
+# Rebuild the 331-entry Terminal Wrench manifest from index/tasks.json
+python scripts/gen_terminal_wrench.py --repo-root /path/to/terminal-wrench
+
+# Stubs — parse upstream data, then NotImplementedError (no adapter yet)
+python scripts/gen_impossiblebench.py --parquet data/conflicting-*.parquet --split conflicting
+python scripts/gen_trace.py --repo-root /path/to/TRACE
+```
 
 ## Install
 
@@ -89,7 +114,7 @@ verity-corpus add <source-url> <path> --domain <category> --adapter <adapter-nam
 # List registered environments
 verity-corpus list [--domain <category>] [--status <status>] [--adapter <adapter>]
 
-# Fetch environments into the local cache
+# Fetch into cache/repos/{hash}/ (catalog rows skipped unless you pass an id)
 verity-corpus fetch <env-id>
 verity-corpus fetch --all
 verity-corpus fetch --domain <category>
@@ -97,10 +122,10 @@ verity-corpus fetch --domain <category>
 # Smoke-test: fetch, resolve through a Core adapter, print the VerityEnv
 verity-corpus resolve <env-id>
 
-# Summary counts by domain and status
+# Summary counts by domain and status (includes a Catalog column)
 verity-corpus status
 
-# Write Core-flat YAML for load_corpus / the batch runner
+# Write Core-flat YAML for load_corpus / the batch runner (skips catalog)
 verity-corpus export --output-dir <path>
 
 # Mark in-memory status audited when a scorecard exists on disk
@@ -120,8 +145,9 @@ uv run pytest -m integration   # Core bridge only
 ## Layout
 
 ```
-manifests/     YAML registry entries (committed)
-scorecards/    Core Scorecard JSON, named via scorecard_slug(env_id)
-vrc/entries/   Exploit trajectories, nested by env id
-cache/         Fetched environment sources (gitignored)
+manifests/              YAML registry entries (committed)
+scripts/                Manual helpers (image build, manifest generators)
+scorecards/             Core Scorecard JSON, named via scorecard_slug(env_id)
+vrc/entries/            Exploit trajectories, nested by env id
+cache/repos/{hash}/     Shared git clone per (url, commit) (gitignored)
 ```
