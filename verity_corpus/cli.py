@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
+from pathlib import Path
 from typing import Optional
 
 import typer
@@ -208,6 +209,19 @@ def status() -> None:
     for category in sorted(counts):
         typer.echo(fmt_row(category, counts[category]))
     typer.echo(fmt_row("Total", totals))
+
+
+@app.command()
+def export(
+    output_dir: Path = typer.Option(..., "--output-dir", help="Directory for Core-flat YAML files."),
+) -> None:
+    """Write Core-compatible manifests that load_corpus() can consume."""
+    paths = _registry().export_for_core(Path(output_dir))
+    if not paths:
+        typer.echo("No entries to export.")
+        return
+    for path in paths:
+        typer.echo(str(path))
 
 
 if __name__ == "__main__":
