@@ -17,6 +17,9 @@ dependencies = [
 Homepage = "https://github.com/Verity-AI-Labs/Verity-Corpus"
 Repository = "https://github.com/Verity-AI-Labs/Verity-Corpus"
 
+[project.scripts]
+verity-corpus = "verity_corpus.cli:app"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.3.0",
