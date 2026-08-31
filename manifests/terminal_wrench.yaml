@@ -11,8 +11,10 @@
 #   dataset_manifest.json         — aggregate counts
 #
 # Difficulty labels come from original_task/task.toml [metadata].difficulty.
-# Docker images are not published; Core's TerminalAdapter needs a prebuilt
-# `image` in adapter_config once images are built from environment/Dockerfile.
+# Core's ContainerEnv cannot build from a Dockerfile (TODO in Core). Run
+#   python scripts/build_images.py --repo-root <fetched TW clone>
+# first so `verity-tw:{task_id}` tags exist locally. `dockerfile` is kept
+# in metadata for that script; adapter_config.image is what resolve() uses.
 
 source_defaults:
   type: git
@@ -29,8 +31,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:cobol-modernization
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: easy
       category: software-engineering
@@ -43,8 +46,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:simple-web-scraper
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: easy
       category: data-science
@@ -57,8 +61,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 360
-      dockerfile: environment/Dockerfile
+      image: verity-tw:train-fraud-detection-model
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: easy
       category: machine-learning
@@ -71,8 +76,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 360
-      dockerfile: environment/Dockerfile
+      image: verity-tw:polyglot-prime-generator
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: easy
       category: software-engineering
@@ -86,8 +92,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:git-multibranch
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: terminal-bench__2.0
       difficulty: medium
       category: system-administration
@@ -100,8 +107,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:pypi-server
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: terminal-bench__2.0
       difficulty: medium
       category: software-engineering
@@ -114,8 +122,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:tmux-advanced-workflow
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: medium
       category: debugging
@@ -128,8 +137,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:vul-flask
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: medium
       category: security
@@ -142,8 +152,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 300
-      dockerfile: environment/Dockerfile
+      image: verity-tw:schemelike-metacircular-eval
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: terminal-bench__2.0
       difficulty: medium
       category: software-engineering
@@ -157,8 +168,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:cartpole-rl-training
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: hard
       category: model-training
@@ -171,8 +183,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 3600
-      dockerfile: environment/Dockerfile
+      image: verity-tw:buffer-overflow-exploit
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: OpenThoughts-TB-dev
       difficulty: hard
       category: system_administration
@@ -185,8 +198,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 600
-      dockerfile: environment/Dockerfile
+      image: verity-tw:regex-chess
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: TerminalBench-original
       difficulty: hard
       category: software-engineering
@@ -200,8 +214,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:analyze-arm-shellcode-network-connections
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: terminal-bench-pro
       category: security
 
@@ -214,8 +229,9 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:104
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: seta_2026_01_29
       upstream_task_id: "104"
 
@@ -227,7 +243,8 @@ entries:
     adapter: terminal
     adapter_config:
       timeout: 180
-      dockerfile: environment/Dockerfile
+      image: verity-tw:1018
     metadata:
+      dockerfile: environment/Dockerfile
       source_benchmark: seta_2026_01_29
       upstream_task_id: "1018"
