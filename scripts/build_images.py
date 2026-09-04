@@ -93,9 +93,7 @@ def grading_layer_dockerfile(base_tag: str) -> str:
     sandbox workdir is a real path even when the image ``WORKDIR`` is ``/app``.
     """
     return (
-        f"FROM {base_tag}\n"
-        "COPY tests /tests\n"
-        "RUN mkdir -p /logs/verifier /workspace\n"
+        f"FROM {base_tag}\nCOPY tests /tests\nRUN mkdir -p /logs/verifier /workspace\n"
     )
 
 
@@ -151,7 +149,11 @@ def stage_environment_context(dockerfile: Path) -> tuple[Path, Path, Path | None
     env_dir = dockerfile.parent
     tests_dir = original_task_dir(dockerfile) / "tests"
     env_tests = env_dir / "tests"
-    if dockerfile_copies_tests(dockerfile) and not env_tests.exists() and tests_dir.is_dir():
+    if (
+        dockerfile_copies_tests(dockerfile)
+        and not env_tests.exists()
+        and tests_dir.is_dir()
+    ):
         tmp = Path(tempfile.mkdtemp(prefix="verity-tw-env-"))
         shutil.copytree(env_dir, tmp, dirs_exist_ok=True)
         shutil.copytree(tests_dir, tmp / "tests")
@@ -175,7 +177,10 @@ def build_image(task_id: str, dockerfile: Path, *, dry_run: bool) -> str:
     if tests_dir.is_dir():
         apply_grading_layer(tag, tests_dir, dry_run=dry_run)
     elif not dry_run:
-        print(f"warning: no tests/ next to environment/ for {task_id}; image has no /tests", file=sys.stderr)
+        print(
+            f"warning: no tests/ next to environment/ for {task_id}; image has no /tests",
+            file=sys.stderr,
+        )
     print(tag)
     return tag
 
@@ -211,7 +216,10 @@ def main(argv: list[str] | None = None) -> int:
         pairs = [(task_id, path) for task_id, path in pairs if task_id in wanted]
         missing = wanted - {task_id for task_id, _ in pairs}
         if missing:
-            print(f"no Dockerfile for task(s): {', '.join(sorted(missing))}", file=sys.stderr)
+            print(
+                f"no Dockerfile for task(s): {', '.join(sorted(missing))}",
+                file=sys.stderr,
+            )
             return 1
     if not pairs:
         print(f"no Dockerfiles found under {repo_root / 'tasks'}", file=sys.stderr)

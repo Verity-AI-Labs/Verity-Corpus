@@ -34,7 +34,9 @@ class FetchError(RuntimeError):
     """Raised when a source cannot be fetched or a local path is missing."""
 
 
-def _run_git(args: list[str], *, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+def _run_git(
+    args: list[str], *, cwd: Path | None = None
+) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         ["git", *args],
         cwd=cwd,
@@ -43,7 +45,9 @@ def _run_git(args: list[str], *, cwd: Path | None = None) -> subprocess.Complete
         check=False,
     )
     if result.returncode != 0:
-        detail = (result.stderr or result.stdout or "").strip() or f"exit {result.returncode}"
+        detail = (
+            result.stderr or result.stdout or ""
+        ).strip() or f"exit {result.returncode}"
         raise FetchError(f"git {' '.join(args)} failed: {detail}")
     return result
 
@@ -58,7 +62,11 @@ def repo_cache_dir(entry: ManifestEntry, cache_dir: Path) -> Path:
     """Directory of the shared shallow clone for ``entry``'s ``(url, commit)`` pin."""
     if not entry.source.url:
         raise FetchError(f"git source for {entry.id} is missing a url")
-    return Path(cache_dir) / "repos" / repo_cache_key(entry.source.url, entry.source.commit)
+    return (
+        Path(cache_dir)
+        / "repos"
+        / repo_cache_key(entry.source.url, entry.source.commit)
+    )
 
 
 def cached_root(entry: ManifestEntry, cache_dir: Path) -> Path:
@@ -80,7 +88,9 @@ def _recorded_commit(target_dir: Path) -> str | None:
 
 
 def _commit_matches(recorded: str, pinned: str) -> bool:
-    return recorded == pinned or recorded.startswith(pinned) or pinned.startswith(recorded)
+    return (
+        recorded == pinned or recorded.startswith(pinned) or pinned.startswith(recorded)
+    )
 
 
 def is_fetched(entry: ManifestEntry, cache_dir: Path = config.CACHE_DIR) -> bool:

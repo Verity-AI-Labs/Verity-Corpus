@@ -33,11 +33,15 @@ def _as_mapping(value: object, *, context: str) -> dict[str, Any]:
     if value is None:
         return {}
     if not isinstance(value, dict):
-        raise RegistryError(f"{context}: expected a mapping, got {type(value).__name__}")
+        raise RegistryError(
+            f"{context}: expected a mapping, got {type(value).__name__}"
+        )
     return value
 
 
-def _merge_source(defaults: dict[str, Any], raw_entry: dict[str, Any]) -> dict[str, Any]:
+def _merge_source(
+    defaults: dict[str, Any], raw_entry: dict[str, Any]
+) -> dict[str, Any]:
     """Build a SourceSpec dict: defaults, then nested ``source``, then top-level fields."""
     merged = dict(defaults)
     nested = raw_entry.get("source")
@@ -49,7 +53,9 @@ def _merge_source(defaults: dict[str, Any], raw_entry: dict[str, Any]) -> dict[s
     return merged
 
 
-def _entry_from_raw(raw_entry: dict[str, Any], defaults: dict[str, Any]) -> ManifestEntry:
+def _entry_from_raw(
+    raw_entry: dict[str, Any], defaults: dict[str, Any]
+) -> ManifestEntry:
     data = dict(raw_entry)
     source = _merge_source(defaults, data)
     for field in SOURCE_FIELDS:
@@ -65,7 +71,9 @@ class CorpusRegistry:
     """Central index of :class:`ManifestEntry` objects, keyed by environment id."""
 
     def __init__(self, manifests_dir: Path | None = None) -> None:
-        self.manifests_dir = Path(manifests_dir) if manifests_dir is not None else config.MANIFESTS_DIR
+        self.manifests_dir = (
+            Path(manifests_dir) if manifests_dir is not None else config.MANIFESTS_DIR
+        )
         self._entries: dict[str, ManifestEntry] = {}
         self._files: dict[str, str] = {}
         self._load()

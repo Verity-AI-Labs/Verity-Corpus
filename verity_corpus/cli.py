@@ -52,8 +52,12 @@ def _select(
 @app.command()
 def add(
     source_url: str = typer.Argument(..., help="Git URL of the environment source."),
-    path: str = typer.Argument(..., help="Path within the repo to the environment root."),
-    domain: str = typer.Option(..., "--domain", help="Domain category (terminal, browser, ...)."),
+    path: str = typer.Argument(
+        ..., help="Path within the repo to the environment root."
+    ),
+    domain: str = typer.Option(
+        ..., "--domain", help="Domain category (terminal, browser, ...)."
+    ),
     adapter: str = typer.Option(..., "--adapter", help="verity-core adapter name."),
     commit: Optional[str] = typer.Option(None, "--commit", help="Pinned commit hash."),
     name: Optional[str] = typer.Option(None, "--name", help="Human-readable label."),
@@ -75,7 +79,9 @@ def add(
         try:
             parsed = json.loads(adapter_config)
         except json.JSONDecodeError as exc:
-            raise typer.BadParameter(f"adapter-config is not valid JSON: {exc}") from exc
+            raise typer.BadParameter(
+                f"adapter-config is not valid JSON: {exc}"
+            ) from exc
         if not isinstance(parsed, dict):
             raise typer.BadParameter("adapter-config must be a JSON object")
         config_payload = parsed
@@ -125,8 +131,12 @@ def list_entries(
 @app.command()
 def fetch(
     env_id: Optional[str] = typer.Argument(None, help="Environment id to fetch."),
-    all_entries: bool = typer.Option(False, "--all", help="Fetch every registered environment."),
-    domain: Optional[str] = typer.Option(None, "--domain", help="Fetch all entries in this domain."),
+    all_entries: bool = typer.Option(
+        False, "--all", help="Fetch every registered environment."
+    ),
+    domain: Optional[str] = typer.Option(
+        None, "--domain", help="Fetch all entries in this domain."
+    ),
 ) -> None:
     """Fetch matching environments into the local cache."""
     if sum(bool(x) for x in (env_id, all_entries, domain)) != 1:
@@ -166,7 +176,9 @@ def fetch(
 
 
 @app.command("resolve")
-def resolve_cmd(env_id: str = typer.Argument(..., help="Environment id to resolve.")) -> None:
+def resolve_cmd(
+    env_id: str = typer.Argument(..., help="Environment id to resolve."),
+) -> None:
     """Fetch if needed, resolve to a VerityEnv, and print its type (smoke test)."""
     registry = _registry()
     entry = registry.by_id(env_id)
@@ -193,7 +205,9 @@ def resolve_cmd(env_id: str = typer.Argument(..., help="Environment id to resolv
 def status() -> None:
     """Print counts by domain category and by status."""
     entries = _registry().all()
-    counts: dict[str, dict[str, int]] = defaultdict(lambda: {s: 0 for s in _STATUS_COLUMNS})
+    counts: dict[str, dict[str, int]] = defaultdict(
+        lambda: {s: 0 for s in _STATUS_COLUMNS}
+    )
     totals = {s: 0 for s in _STATUS_COLUMNS}
     for entry in entries:
         counts[entry.domain.category][entry.status] += 1
@@ -206,9 +220,11 @@ def status() -> None:
         cells = "".join(f"{values[s]:>{col_width}}" for s in _STATUS_COLUMNS)
         return f"{label:<{name_width}}{cells}{sum(values.values()):>{col_width}}"
 
-    header = f"{'Domain':<{name_width}}" + "".join(
-        f"{h:>{col_width}}" for h in _STATUS_HEADERS
-    ) + f"{'Total':>{col_width}}"
+    header = (
+        f"{'Domain':<{name_width}}"
+        + "".join(f"{h:>{col_width}}" for h in _STATUS_HEADERS)
+        + f"{'Total':>{col_width}}"
+    )
     typer.echo(header)
     for category in sorted(counts):
         typer.echo(fmt_row(category, counts[category]))
@@ -217,7 +233,9 @@ def status() -> None:
 
 @app.command()
 def export(
-    output_dir: Path = typer.Option(..., "--output-dir", help="Directory for Core-flat YAML files."),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", help="Directory for Core-flat YAML files."
+    ),
 ) -> None:
     """Write Core-compatible manifests that load_corpus() can consume."""
     paths = _registry().export_for_core(Path(output_dir))

@@ -15,7 +15,9 @@ def _load_build():
     return module
 
 
-def _task(repo: Path, task_id: str, *, dockerfile: str, tests: dict[str, str] | None = None) -> Path:
+def _task(
+    repo: Path, task_id: str, *, dockerfile: str, tests: dict[str, str] | None = None
+) -> Path:
     env = repo / "tasks" / task_id / "claude-opus-4.6" / "original_task" / "environment"
     env.mkdir(parents=True)
     (env / "Dockerfile").write_text(dockerfile, encoding="utf-8")
@@ -46,7 +48,15 @@ def test_discover_and_dry_run_prints_environment_then_grading_layer(
     )
     # Self-contained COPY of tests into /app still lives in environment/; grading
     # tests remain at original_task/tests and still need the /tests layer.
-    env_tests = repo / "tasks" / "schemelike" / "claude-opus-4.6" / "original_task" / "environment" / "tests"
+    env_tests = (
+        repo
+        / "tasks"
+        / "schemelike"
+        / "claude-opus-4.6"
+        / "original_task"
+        / "environment"
+        / "tests"
+    )
     env_tests.mkdir()
     (env_tests / "interp.py").write_text("print(1)\n", encoding="utf-8")
 

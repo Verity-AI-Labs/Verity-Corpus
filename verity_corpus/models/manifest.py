@@ -20,7 +20,9 @@ from pydantic import BaseModel, Field, model_validator
 
 SourceType = Literal["git", "local"]
 DomainCategory = Literal["terminal", "browser", "gui", "code", "api", "math", "other"]
-EntryStatus = Literal["registered", "fetched", "auditing", "audited", "broken", "catalog"]
+EntryStatus = Literal[
+    "registered", "fetched", "auditing", "audited", "broken", "catalog"
+]
 
 __all__ = [
     "DomainCategory",

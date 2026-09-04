@@ -86,7 +86,9 @@ class TestFetchGit:
         cache_dir = tmp_path / "cache"
 
         def fake_run(args, **kwargs):
-            target = Path(args[-1]) if args[1] == "clone" else Path(kwargs.get("cwd") or ".")
+            target = (
+                Path(args[-1]) if args[1] == "clone" else Path(kwargs.get("cwd") or ".")
+            )
             if args[1] == "clone":
                 (target / entry.source.path).mkdir(parents=True)
                 return _ok("cloned")
@@ -114,7 +116,9 @@ class TestFetchGit:
         assert repo_cache_dir(foo, cache_dir) == repo_cache_dir(bar, cache_dir)
 
         def fake_run(args, **kwargs):
-            target = Path(args[-1]) if args[1] == "clone" else Path(kwargs.get("cwd") or ".")
+            target = (
+                Path(args[-1]) if args[1] == "clone" else Path(kwargs.get("cwd") or ".")
+            )
             if args[1] == "clone":
                 (target / "tasks" / "foo").mkdir(parents=True)
                 (target / "tasks" / "bar").mkdir(parents=True)

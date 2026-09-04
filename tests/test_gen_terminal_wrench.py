@@ -21,7 +21,9 @@ def _load_gen():
 def test_collect_entries_reads_tasks_json_and_task_toml(tmp_path: Path) -> None:
     gen = _load_gen()
     repo = tmp_path / "tw"
-    task_dir = repo / "tasks" / "cobol-modernization" / "claude-opus-4.6" / "original_task"
+    task_dir = (
+        repo / "tasks" / "cobol-modernization" / "claude-opus-4.6" / "original_task"
+    )
     task_dir.mkdir(parents=True)
     (task_dir / "task.toml").write_text(
         """\
@@ -35,11 +37,17 @@ timeout_sec = 180
     )
     env = task_dir / "environment"
     env.mkdir()
-    (env / "Dockerfile").write_text("FROM ubuntu:24.04\nWORKDIR /app\n", encoding="utf-8")
+    (env / "Dockerfile").write_text(
+        "FROM ubuntu:24.04\nWORKDIR /app\n", encoding="utf-8"
+    )
     tests = task_dir / "tests"
     tests.mkdir()
-    (tests / "test.sh").write_text("uv run pytest /tests/test_outputs.py -rA\n", encoding="utf-8")
-    (tests / "test_outputs.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    (tests / "test.sh").write_text(
+        "uv run pytest /tests/test_outputs.py -rA\n", encoding="utf-8"
+    )
+    (tests / "test_outputs.py").write_text(
+        "def test_ok():\n    assert True\n", encoding="utf-8"
+    )
 
     workspace_task = repo / "tasks" / "891" / "claude-opus-4.6" / "original_task"
     workspace_task.mkdir(parents=True)
@@ -77,7 +85,13 @@ timeout_sec = 180
         encoding="utf-8",
     )
     (repo / "task_source_datasets.json").write_text(
-        json.dumps({"cobol-modernization": ["TerminalBench-original"], "104": ["seta_2026_01_29"], "891": ["seta_2026_01_29"]}),
+        json.dumps(
+            {
+                "cobol-modernization": ["TerminalBench-original"],
+                "104": ["seta_2026_01_29"],
+                "891": ["seta_2026_01_29"],
+            }
+        ),
         encoding="utf-8",
     )
 
@@ -142,5 +156,6 @@ def test_infer_test_command_prefers_test_sh(tmp_path: Path) -> None:
     (tests / "test.sh").unlink()
     assert gen.infer_test_command(tests) == "bash /tests/run-tests.sh"
     (tests / "run-tests.sh").unlink()
-    assert gen.infer_test_command(tests) == "python3 -m pytest /tests/test_outputs.py -rA"
-
+    assert (
+        gen.infer_test_command(tests) == "python3 -m pytest /tests/test_outputs.py -rA"
+    )

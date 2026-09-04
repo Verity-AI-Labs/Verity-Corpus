@@ -45,7 +45,9 @@ class TestFetchSkipsCatalog:
     ) -> None:
         manifests = tmp_path / "manifests"
         _write_mixed(manifests)
-        monkeypatch.setattr("verity_corpus.cli._registry", lambda: CorpusRegistry(manifests))
+        monkeypatch.setattr(
+            "verity_corpus.cli._registry", lambda: CorpusRegistry(manifests)
+        )
         fetched: list[str] = []
 
         def fake_fetch(entry, cache_dir=None):
@@ -63,7 +65,9 @@ class TestFetchSkipsCatalog:
     def test_fetch_domain_skips_catalog(self, tmp_path: Path, monkeypatch) -> None:
         manifests = tmp_path / "manifests"
         _write_mixed(manifests)
-        monkeypatch.setattr("verity_corpus.cli._registry", lambda: CorpusRegistry(manifests))
+        monkeypatch.setattr(
+            "verity_corpus.cli._registry", lambda: CorpusRegistry(manifests)
+        )
         fetched: list[str] = []
 
         def fake_fetch(entry, cache_dir=None):
@@ -82,7 +86,9 @@ class TestFetchSkipsCatalog:
         _write_mixed(manifests)
         registry = CorpusRegistry(manifests)
         catalog = next(e for e in registry.all() if e.status == "catalog")
-        monkeypatch.setattr("verity_corpus.cli._registry", lambda: CorpusRegistry(manifests))
+        monkeypatch.setattr(
+            "verity_corpus.cli._registry", lambda: CorpusRegistry(manifests)
+        )
         fetched: list[str] = []
 
         def fake_fetch(entry, cache_dir=None):
@@ -98,11 +104,14 @@ class TestFetchSkipsCatalog:
 
 
 class TestStatusCatalogColumn:
-    def test_status_table_includes_catalog_column(self, tmp_path: Path, monkeypatch) -> None:
+    def test_status_table_includes_catalog_column(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
         manifests = tmp_path / "manifests"
         _write_mixed(manifests)
-        monkeypatch.setattr("verity_corpus.cli._registry", lambda: CorpusRegistry(manifests))
+        monkeypatch.setattr(
+            "verity_corpus.cli._registry", lambda: CorpusRegistry(manifests)
+        )
         result = runner.invoke(app, ["status"])
         assert result.exit_code == 0, result.output
         assert "Catalog" in result.output
-

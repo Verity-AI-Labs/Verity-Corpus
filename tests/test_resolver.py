@@ -37,10 +37,14 @@ def _entry(
 
 
 class TestCoreManifestInstructions:
-    def test_metadata_instructions_win_over_file(self, tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
+    def test_metadata_instructions_win_over_file(
+        self, tmp_path: Path, caplog: pytest.LogCaptureFixture
+    ) -> None:
         env_root = tmp_path / "env"
         env_root.mkdir()
-        (env_root / "instruction.md").write_text("file prose that must not be used", encoding="utf-8")
+        (env_root / "instruction.md").write_text(
+            "file prose that must not be used", encoding="utf-8"
+        )
         entry = _entry(metadata={"instructions": "  do the inline task  "})
 
         payload = core_manifest(entry, env_root)
@@ -62,7 +66,9 @@ class TestCoreManifestInstructions:
         assert payload["instructions"] == "Redirect stdout and stderr into output1.txt."
         assert payload["instructions"] != entry.name
 
-    def test_reads_instructions_md_alias_without_source_hardcoding(self, tmp_path: Path) -> None:
+    def test_reads_instructions_md_alias_without_source_hardcoding(
+        self, tmp_path: Path
+    ) -> None:
         env_root = tmp_path / "env"
         env_root.mkdir()
         (env_root / "instructions.md").write_text(
@@ -94,7 +100,9 @@ class TestCoreManifestInstructions:
     def test_empty_metadata_falls_through_to_file(self, tmp_path: Path) -> None:
         env_root = tmp_path / "env"
         env_root.mkdir()
-        (env_root / "instruction.md").write_text("real task prose from disk", encoding="utf-8")
+        (env_root / "instruction.md").write_text(
+            "real task prose from disk", encoding="utf-8"
+        )
         entry = _entry(metadata={"instructions": "  ", "notes": "blank on purpose"})
 
         payload = core_manifest(entry, env_root)
@@ -103,7 +111,9 @@ class TestCoreManifestInstructions:
 
     def test_example_manifest_keeps_inline_metadata_behavior(self) -> None:
         registry = CorpusRegistry()
-        examples = [e for e in registry.all() if e.name == "Example Terminal Environment"]
+        examples = [
+            e for e in registry.all() if e.name == "Example Terminal Environment"
+        ]
         assert examples, "manifests/example.yaml should still load"
         entry = examples[0]
         assert "instructions" not in entry.metadata
@@ -144,7 +154,9 @@ def _git(args: list[str], *, cwd: Path) -> None:
         check=False,
     )
     if result.returncode != 0:
-        detail = (result.stderr or result.stdout or "").strip() or f"exit {result.returncode}"
+        detail = (
+            result.stderr or result.stdout or ""
+        ).strip() or f"exit {result.returncode}"
         pytest.fail(f"git {' '.join(args)} failed: {detail}")
 
 
@@ -179,7 +191,9 @@ class TestLiveTerminalWrenchInstructions:
         cache_dir = tmp_path / "cache"
         clone_dir = repo_cache_dir(entry, cache_dir)
         env_root = _sparse_checkout_entry(entry, clone_dir)
-        (clone_dir / COMMIT_MARKER).write_text(entry.source.commit + "\n", encoding="utf-8")
+        (clone_dir / COMMIT_MARKER).write_text(
+            entry.source.commit + "\n", encoding="utf-8"
+        )
         assert is_fetched(entry, cache_dir=cache_dir)
 
         payload = core_manifest(entry, env_root)

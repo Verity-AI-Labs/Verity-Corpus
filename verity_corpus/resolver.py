@@ -133,7 +133,8 @@ def core_manifest(entry: ManifestEntry, env_root: Path | None = None) -> dict[st
         "id": entry.id,
         "format": entry.adapter,
         "domain": DOMAIN_TO_CORE.get(entry.domain.category, "other"),
-        "source": entry.source.url or (str(env_root) if env_root is not None else entry.source.path),
+        "source": entry.source.url
+        or (str(env_root) if env_root is not None else entry.source.path),
         "commit": entry.source.commit or "",
         "instructions": _resolve_instructions(entry, env_root),
         **entry.adapter_config,

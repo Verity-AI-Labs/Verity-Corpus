@@ -14,7 +14,11 @@ from verity_corpus.fetcher import fetch, is_fetched
 from verity_corpus.models.manifest import DomainTag, ManifestEntry, SourceSpec
 from verity_corpus.registry import CorpusRegistry
 from verity_corpus.resolver import core_manifest
-from verity_corpus.results import record_vrc_entry, sync_status, update_scorecard_from_core
+from verity_corpus.results import (
+    record_vrc_entry,
+    sync_status,
+    update_scorecard_from_core,
+)
 from verity_corpus.scorecard_store import exists, load, save
 
 pytestmark = pytest.mark.integration
@@ -34,7 +38,11 @@ def _entry(
         source=SourceSpec(type="local", path=str(env_root)),
         domain=DomainTag(category="terminal", subcategory="bash"),
         adapter=adapter,
-        adapter_config={"image": "busybox:latest", "timeout": 30, **(extra_config or {})},
+        adapter_config={
+            "image": "busybox:latest",
+            "timeout": 30,
+            **(extra_config or {}),
+        },
     )
 
 
@@ -56,7 +64,9 @@ class TestManifestFetchCoreManifest:
 
 
 class TestScorecardStoreAndMerge:
-    def test_core_scorecard_round_trip_preserves_none_vs_zero(self, tmp_path: Path) -> None:
+    def test_core_scorecard_round_trip_preserves_none_vs_zero(
+        self, tmp_path: Path
+    ) -> None:
         card = Scorecard(env_id="env1")
         card.set_axis("V1", 0.0, "verity-signal", {"n": 4})
         save(card, tmp_path)
@@ -124,7 +134,9 @@ class TestVRCAndStatusSync:
         changed = sync_status(registry, scorecards)
         assert changed == {entry.id: "audited"}
         assert registry.by_id(entry.id).status == "audited"
-        on_disk = yaml.safe_load((manifests / "manual.yaml").read_text(encoding="utf-8"))
+        on_disk = yaml.safe_load(
+            (manifests / "manual.yaml").read_text(encoding="utf-8")
+        )
         assert on_disk["entries"][0]["status"] == "registered"
 
 

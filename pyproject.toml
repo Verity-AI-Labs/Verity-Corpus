@@ -24,6 +24,7 @@ verity-corpus = "verity_corpus.cli:app"
 dev = [
     "pytest>=8.3.0",
     "pytest-cov>=5.0.0",
+    "ruff>=0.6.0,<0.16.0",
 ]
 
 [build-system]

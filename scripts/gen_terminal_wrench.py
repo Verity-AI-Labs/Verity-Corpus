@@ -16,7 +16,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import sys
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -175,7 +174,9 @@ def grading_adapter_config(task_root: Path | None) -> dict[str, Any]:
     if task_root is None:
         return {}
     dockerfile = task_root / "environment" / "Dockerfile"
-    workdir = dockerfile_workdir(dockerfile) if dockerfile.is_file() else DEFAULT_WORKDIR
+    workdir = (
+        dockerfile_workdir(dockerfile) if dockerfile.is_file() else DEFAULT_WORKDIR
+    )
     submission_path = f"{workdir.rstrip('/')}/solve.sh"
     test_command = infer_test_command(task_root / "tests")
     apply_command = with_workdir(f"bash {submission_path}", workdir)
@@ -248,7 +249,9 @@ def build_entry(
         "timeout": timeout,
         "image": f"verity-tw:{task_id}",
     }
-    adapter_config.update(grading_adapter_config(find_original_task(repo_root, task_id)))
+    adapter_config.update(
+        grading_adapter_config(find_original_task(repo_root, task_id))
+    )
 
     return {
         "name": task_id,
@@ -319,7 +322,11 @@ def main(argv: list[str] | None = None) -> int:
     repo_root = args.repo_root.expanduser().resolve()
     output = args.output
     if output is None:
-        output = Path(__file__).resolve().parent.parent / "manifests" / "terminal_wrench.yaml"
+        output = (
+            Path(__file__).resolve().parent.parent
+            / "manifests"
+            / "terminal_wrench.yaml"
+        )
     entries = collect_entries(repo_root)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(render_manifest(entries), encoding="utf-8")

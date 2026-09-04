@@ -139,7 +139,9 @@ def entry_for_lcb_instance(row: dict[str, Any], *, split: str) -> dict[str, Any]
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("--parquet", type=Path, required=True, help="Split parquet file.")
+    parser.add_argument(
+        "--parquet", type=Path, required=True, help="Split parquet file."
+    )
     parser.add_argument("--split", required=True, choices=SPLITS)
     parser.add_argument(
         "--kind",
@@ -149,7 +151,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     rows = iter_parquet_rows(args.parquet.expanduser())
-    print(f"read {len(rows)} rows from {args.parquet} (split={args.split})", file=sys.stderr)
+    print(
+        f"read {len(rows)} rows from {args.parquet} (split={args.split})",
+        file=sys.stderr,
+    )
     builder = entry_for_swe_instance if args.kind == "swe" else entry_for_lcb_instance
     builder(rows[0], split=args.split)
     return 0
