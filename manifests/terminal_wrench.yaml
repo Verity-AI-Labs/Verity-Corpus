@@ -5,6 +5,9 @@
 # Layout: tasks/<task_id>/claude-opus-4.6/original_task
 # Images: adapter_config.image is verity-tw:<task_id>; build with
 #   python scripts/build_images.py --repo-root <fetched TW clone>
+#   (bakes original_task/tests at /tests — TB mounts this at grade time)
+# Per-task adapter_config.submission_path / test_command / apply_command
+# are inferred from the Dockerfile WORKDIR and tests/ filenames.
 # Catalog: index/tasks.json, task_source_datasets.json
 #
 # Eight of 331 tasks have no claude-opus-4.6 copy in the upstream repo;
@@ -25,6 +28,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:5
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -40,6 +48,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:8
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -55,6 +68,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:22
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -70,6 +88,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:31
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -85,6 +108,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:36
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -100,6 +128,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:44
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -115,6 +148,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:49
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -130,6 +168,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:61
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -145,6 +188,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:63
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -160,6 +208,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:65
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -175,6 +228,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:94
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -190,6 +248,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:99
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -205,6 +268,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:104
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -220,6 +288,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:117
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -235,6 +308,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:125
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -250,6 +328,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:134
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -265,6 +348,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:147
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -280,6 +368,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:154
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -295,6 +388,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:156
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -310,6 +408,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:158
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -323,11 +426,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 600
     image: verity-tw:161
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
+    difficulty: medium
+    category: system-administration
     upstream_task_id: '161'
 - name: '164'
   path: tasks/164/claude-opus-4.6/original_task
@@ -338,6 +448,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:164
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -353,6 +468,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:165
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -368,6 +488,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:178
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -383,6 +508,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:199
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -398,6 +528,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:201
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -413,6 +548,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:213
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -428,6 +568,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:218
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -443,6 +588,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:221
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -458,6 +608,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:222
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -473,6 +628,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:228
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -488,6 +648,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:230
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -503,6 +668,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:233
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -518,6 +688,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:234
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -533,6 +708,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:236
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -548,6 +728,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:247
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -563,6 +748,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:248
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -578,6 +768,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:254
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -593,6 +788,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:263
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -608,6 +808,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:265
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -623,6 +828,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:268
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -638,6 +848,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:274
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -653,6 +868,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:283
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -668,6 +888,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:294
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -683,6 +908,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:307
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -698,6 +928,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:316
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -713,6 +948,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:328
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -728,6 +968,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:346
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -743,6 +988,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:352
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -758,6 +1008,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:354
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -773,6 +1028,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:355
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -788,6 +1048,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:361
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -803,6 +1068,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:364
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -818,6 +1088,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:374
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -831,11 +1106,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 600
     image: verity-tw:376
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
+    difficulty: medium
+    category: software-engineering
     upstream_task_id: '376'
 - name: '380'
   path: tasks/380/claude-opus-4.6/original_task
@@ -846,6 +1128,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:380
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -861,6 +1148,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:381
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -876,6 +1168,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:392
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -891,6 +1188,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:404
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -906,6 +1208,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:408
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -921,6 +1228,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:426
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -936,6 +1248,10 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:427
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -951,6 +1267,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:429
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -966,6 +1287,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:438
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -981,6 +1307,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:445
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -996,6 +1327,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:448
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1011,6 +1347,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:457
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1026,6 +1367,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:458
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1041,6 +1387,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:462
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1056,6 +1407,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:464
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1071,6 +1426,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:474
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1086,6 +1446,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:475
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1101,6 +1466,11 @@ entries:
   adapter_config:
     timeout: 900
     image: verity-tw:478
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1116,6 +1486,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:481
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1131,6 +1506,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:482
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1146,6 +1526,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:486
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1161,6 +1546,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:489
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1176,6 +1566,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:494
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1191,6 +1586,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:495
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1206,6 +1606,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:497
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1221,6 +1626,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:498
+    submission_path: /home/agent/solve.sh
+    apply_command: cd /home/agent && bash /home/agent/solve.sh
+    test_command: cd /home/agent && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1236,6 +1646,10 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:500
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1251,6 +1665,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:505
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1266,6 +1685,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:515
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1281,6 +1705,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:517
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1296,6 +1725,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:530
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1311,6 +1745,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:532
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1326,6 +1765,10 @@ entries:
   adapter_config:
     timeout: 900
     image: verity-tw:535
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1341,6 +1784,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:538
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1356,6 +1804,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:540
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1371,6 +1824,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:542
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1386,6 +1844,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:547
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1401,6 +1864,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:548
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1416,6 +1884,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:550
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1431,6 +1904,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:573
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1446,6 +1924,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:575
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1461,6 +1944,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:576
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1476,6 +1964,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:582
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1491,6 +1984,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:585
+    submission_path: /home/testuser/solve.sh
+    apply_command: cd /home/testuser && bash /home/testuser/solve.sh
+    test_command: cd /home/testuser && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1506,6 +2004,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:596
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1521,6 +2024,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:606
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1536,6 +2044,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:614
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1551,6 +2064,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:615
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1566,6 +2084,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:618
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1581,6 +2103,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:625
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1596,6 +2123,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:627
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1611,6 +2143,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:630
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1626,6 +2163,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:637
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1641,6 +2183,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:647
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1656,6 +2203,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:648
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1671,6 +2223,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:652
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1686,6 +2243,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:655
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1699,11 +2261,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 600
     image: verity-tw:656
+    submission_path: /home/user/scripts/solve.sh
+    apply_command: cd /home/user/scripts && bash /home/user/scripts/solve.sh
+    test_command: cd /home/user/scripts && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
+    difficulty: hard
+    category: software-engineering
     upstream_task_id: '656'
 - name: '657'
   path: tasks/657/claude-opus-4.6/original_task
@@ -1714,6 +2283,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:657
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1729,6 +2303,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:666
+    submission_path: /home/deployer/solve.sh
+    apply_command: cd /home/deployer && bash /home/deployer/solve.sh
+    test_command: cd /home/deployer && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1744,6 +2323,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:667
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1759,6 +2343,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:672
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1774,6 +2363,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:691
+    submission_path: /home/developer/solve.sh
+    apply_command: cd /home/developer && bash /home/developer/solve.sh
+    test_command: cd /home/developer && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1789,6 +2383,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:700
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1804,6 +2402,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:710
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1819,6 +2422,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:713
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1834,6 +2442,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:715
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1849,6 +2462,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:716
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1864,6 +2482,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:726
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1879,6 +2501,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:727
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1894,6 +2521,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:735
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1909,6 +2541,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:739
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1924,6 +2561,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:745
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1939,6 +2581,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:749
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1954,6 +2601,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:753
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1969,6 +2621,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:765
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1984,6 +2641,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:770
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -1999,6 +2661,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:775
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2014,6 +2681,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:778
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2029,6 +2701,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:781
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2044,6 +2721,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:783
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2059,6 +2741,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:795
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2074,6 +2761,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:799
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2089,6 +2781,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:802
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2104,6 +2801,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:824
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2119,6 +2821,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:826
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2134,6 +2841,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:837
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2149,6 +2861,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:838
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2164,6 +2881,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:842
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2179,6 +2901,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:849
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2194,6 +2921,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:850
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2209,6 +2941,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:855
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2224,6 +2961,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:864
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2239,6 +2981,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:867
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2254,6 +3001,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:868
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2269,6 +3021,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:871
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2284,6 +3041,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:880
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2299,6 +3061,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:886
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2314,6 +3081,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:891
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2329,6 +3100,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:900
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2344,6 +3120,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:901
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2359,6 +3140,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:906
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2374,6 +3160,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:913
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2389,6 +3180,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:917
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2404,6 +3200,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:929
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2419,6 +3220,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:930
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2434,6 +3239,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:935
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2449,6 +3259,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:945
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2464,6 +3279,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:948
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2479,6 +3299,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:952
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2494,6 +3319,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:956
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2509,6 +3339,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:958
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2524,6 +3359,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:963
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2539,6 +3379,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:964
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2554,6 +3399,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:969
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2569,6 +3419,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:972
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2584,6 +3439,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:976
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2599,6 +3459,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:981
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2614,6 +3479,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:983
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2629,6 +3499,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:984
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2644,6 +3519,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:995
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2659,6 +3539,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1012
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2674,6 +3559,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1018
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2689,6 +3579,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1025
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2704,6 +3599,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1026
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2719,6 +3619,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1029
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2734,6 +3639,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1035
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2749,6 +3659,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1039
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2764,6 +3679,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1044
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2779,6 +3699,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1056
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2794,6 +3719,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1057
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2809,6 +3739,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1063
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2824,6 +3759,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1074
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2839,6 +3779,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1086
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2854,6 +3799,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:1101
+    submission_path: /home/deployer/solve.sh
+    apply_command: cd /home/deployer && bash /home/deployer/solve.sh
+    test_command: cd /home/deployer && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2869,6 +3819,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1104
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2884,6 +3839,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1107
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2899,6 +3859,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1109
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2914,6 +3879,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1115
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2929,6 +3899,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1131
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2944,6 +3919,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1134
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2959,6 +3938,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1139
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2974,6 +3958,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1144
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -2989,6 +3978,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1152
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3004,6 +3998,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1154
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3019,6 +4018,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1168
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3034,6 +4038,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1169
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3049,6 +4058,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1173
+    submission_path: /home/agent/solve.sh
+    apply_command: cd /home/agent && bash /home/agent/solve.sh
+    test_command: cd /home/agent && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3064,6 +4078,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1176
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3079,6 +4098,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1178
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3094,6 +4118,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1183
+    submission_path: /opt/backup/solve.sh
+    apply_command: cd /opt/backup && bash /opt/backup/solve.sh
+    test_command: cd /opt/backup && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3109,6 +4138,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1185
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3124,6 +4158,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1186
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3139,6 +4178,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1190
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3154,6 +4198,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1192
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3169,6 +4218,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1199
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3184,6 +4238,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1217
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3197,11 +4256,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 600
     image: verity-tw:1219
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
+    difficulty: hard
+    category: system-administration
     upstream_task_id: '1219'
 - name: '1220'
   path: tasks/1220/claude-opus-4.6/original_task
@@ -3212,6 +4278,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1220
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3227,6 +4298,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1223
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3242,6 +4318,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1225
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3257,6 +4338,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1229
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3272,6 +4357,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1234
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3287,6 +4377,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1235
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3302,6 +4397,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1250
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3317,6 +4417,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1251
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3332,6 +4437,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1254
+    submission_path: /home/user/solve.sh
+    apply_command: cd /home/user && bash /home/user/solve.sh
+    test_command: cd /home/user && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3347,6 +4457,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1255
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3362,6 +4477,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1256
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3377,6 +4497,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1260
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3392,6 +4517,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1261
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3407,6 +4537,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1270
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3422,6 +4557,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1285
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3437,6 +4577,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:1296
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3452,6 +4597,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1301
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3467,6 +4617,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1321
+    submission_path: /opt/shared_app/solve.sh
+    apply_command: cd /opt/shared_app && bash /opt/shared_app/solve.sh
+    test_command: cd /opt/shared_app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3482,6 +4637,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1326
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3497,6 +4657,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1327
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3512,6 +4677,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1329
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3527,6 +4697,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1348
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3542,6 +4717,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1350
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3557,6 +4737,10 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1351
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3572,6 +4756,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1355
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3587,6 +4776,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1362
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3602,6 +4796,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:1366
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3617,6 +4816,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:1374
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: seta_2026_01_29
@@ -3632,6 +4836,11 @@ entries:
   adapter_config:
     timeout: 60
     image: verity-tw:3d-model-format-legacy
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3646,6 +4855,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:adaptive-rejection-sampler
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -3663,6 +4877,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:amuse-install
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -3680,6 +4899,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:analyze-arm-shellcode-network-connections
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3694,6 +4918,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:analyze-fen-with-stockfish
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3708,6 +4937,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:analyze-pgn-best-chess-move
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3722,6 +4956,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:blind-maze-explorer-5x5
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3736,6 +4975,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:blind-maze-explorer-algorithm
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3750,6 +4994,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:bn-fit-modify
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -3767,6 +5016,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:buffer-overflow-exploit
+    submission_path: /workdir/solve.sh
+    apply_command: cd /workdir && bash /workdir/solve.sh
+    test_command: cd /workdir && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -3779,11 +5033,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 1800
     image: verity-tw:build-uci-chess-engine-to-beat-multiple-bots
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
+    difficulty: hard
+    category: games
 - name: cartpole-rl-training
   path: tasks/cartpole-rl-training/claude-opus-4.6/original_task
   domain:
@@ -3793,6 +5054,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:cartpole-rl-training
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3807,6 +5073,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:cobol-modernization
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -3824,6 +5095,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:compare-lasso-ridge-elasticnet
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3838,6 +5114,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:compute-best-chess-move-san
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3852,6 +5133,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:configure-git-webserver
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -3869,6 +5155,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:constrained-portfolio-variance-minimization
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3883,6 +5174,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:cross-entropy-method
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3897,6 +5193,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:custom-memory-heap-crash
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -3914,6 +5215,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:decommissioning-service-with-sensitive-data
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3928,6 +5234,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:detect-c-feature-flags
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3942,6 +5253,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:enemy-grid-escape
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -3956,6 +5272,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:enumerate-polytope-extreme-points
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3970,6 +5291,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:find-invalid-blockchain-transactions
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3984,6 +5310,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:fix-django-command-injection
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -3998,6 +5329,10 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:fix-multihead-attention-weights-shape
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4012,6 +5347,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:fix-sentiment-cli-text-processing
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4026,6 +5366,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:flood-escape-path-planner
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4040,6 +5385,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:fmri-encoding-r
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4054,6 +5404,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:get-bitcoin-nodes
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4068,6 +5423,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:git-multibranch
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4085,6 +5445,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:implement-2d-convolution
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4099,6 +5464,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:implement-connect-four-mcts
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4113,6 +5483,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:implement-nonogram-solver
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4127,6 +5502,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:implement-tensor-parallel-matmul
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4141,6 +5521,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:improve-predictive-maintenance-model
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4155,6 +5540,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:iot-device-registration-server
+    submission_path: /workdir/solve.sh
+    apply_command: cd /workdir && bash /workdir/solve.sh
+    test_command: cd /workdir && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4169,6 +5559,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:iris-data-loading-script
+    submission_path: /workdir/solve.sh
+    apply_command: cd /workdir && bash /workdir/solve.sh
+    test_command: cd /workdir && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4183,6 +5578,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:largest-eigenval
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4200,6 +5600,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:learn-gaussian-mrf-and-infer
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4214,6 +5619,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:logistic-regression-divergence
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4228,6 +5638,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:mnist-learning-fix
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4245,6 +5660,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:mongodb-sales-aggregation-engine
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4259,6 +5679,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:multi-source-data-merger
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4276,6 +5701,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:optimal-2x2x2-cube-solver
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4290,6 +5720,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:optimize-postgresql-analytics-query
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4304,6 +5739,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:optimize-urdf-robot-for-pybullet
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4318,6 +5758,11 @@ entries:
   adapter_config:
     timeout: 900
     image: verity-tw:parallelize-graph
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4332,6 +5777,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:play-lord
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4346,6 +5796,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:polyglot-prime-generator
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4360,6 +5815,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:polyglot-text-stats-script
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4374,6 +5834,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:port-fortran-climate-model-to-python
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4388,6 +5853,10 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:port-fortran-rk4-lorenz-to-python
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4402,6 +5871,11 @@ entries:
   adapter_config:
     timeout: 1800
     image: verity-tw:portfolio-optimization
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4419,6 +5893,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:present-known-plaintext-key-recovery
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4433,6 +5912,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:pypi-server
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4450,6 +5934,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:recover-and-sanitize-postgres-wal-secret
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4464,6 +5953,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:recover-corrupted-sqlite-data
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4478,6 +5972,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:recover-encrypted-db-credentials
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4490,11 +5989,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 360
     image: verity-tw:recover-prod-db-password-from-git-history
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
+    difficulty: medium
+    category: debugging
 - name: regex-chess
   path: tasks/regex-chess/claude-opus-4.6/original_task
   domain:
@@ -4504,6 +6010,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:regex-chess
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4521,6 +6032,10 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:resolve-react-peer-deps
+    submission_path: /workspace/solve.sh
+    test_command: bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4535,6 +6050,11 @@ entries:
   adapter_config:
     timeout: 420
     image: verity-tw:rush-hour-bfs-solver
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4549,6 +6069,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:sakila-sql-optimization
+    submission_path: /workdir/solve.sh
+    apply_command: cd /workdir && bash /workdir/solve.sh
+    test_command: cd /workdir && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4563,6 +6088,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:sanitize-jinja2-ssti-templates
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4577,6 +6107,11 @@ entries:
   adapter_config:
     timeout: 900
     image: verity-tw:schedule-vacation
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4594,6 +6129,11 @@ entries:
   adapter_config:
     timeout: 300
     image: verity-tw:schemelike-metacircular-eval
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4611,6 +6151,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:setup-mlflow-sqlite-server
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4625,6 +6170,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:setup-ubuntu-vm-ssh-key-auth
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4639,6 +6189,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:simple-web-scraper
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4653,6 +6208,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:solana-data
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4667,6 +6227,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:solve-chess-mate-in-two
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4681,6 +6246,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:solve-colossal-cave-350-score
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4693,11 +6263,18 @@ entries:
     subcategory: bash
   adapter: terminal
   adapter_config:
-    timeout: 180
+    timeout: 360
     image: verity-tw:solve-escape-room-puzzle-server
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
+    difficulty: medium
+    category: games
 - name: solve-ode-with-sympy
   path: tasks/solve-ode-with-sympy/claude-opus-4.6/original_task
   domain:
@@ -4707,6 +6284,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:solve-ode-with-sympy
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4721,6 +6303,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:solve-train-shunting-puzzle
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4735,6 +6322,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:sqlite-with-gcov
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
@@ -4752,6 +6344,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:stabilize-neural-network-training
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4766,6 +6363,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:sympy-matrix-fix
+    submission_path: /workdir/sympy/solve.sh
+    apply_command: cd /workdir/sympy && bash /workdir/sympy/solve.sh
+    test_command: cd /workdir/sympy && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4780,6 +6382,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:synthesize-harmonic-wav-in-c
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4794,6 +6401,11 @@ entries:
   adapter_config:
     timeout: 3600
     image: verity-tw:titanic-female-survival-prediction
+    submission_path: /workdir/solve.sh
+    apply_command: cd /workdir && bash /workdir/solve.sh
+    test_command: cd /workdir && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: OpenThoughts-TB-dev
@@ -4808,6 +6420,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:tmux-advanced-workflow
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4822,6 +6439,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:train-fasttext-style-subword-embeddings
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4836,6 +6458,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:train-fraud-detection-model
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4850,6 +6477,11 @@ entries:
   adapter_config:
     timeout: 360
     image: verity-tw:train-loan-default-logreg-model
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench-pro
@@ -4864,6 +6496,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:tree-directory-parser
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4878,6 +6515,11 @@ entries:
   adapter_config:
     timeout: 600
     image: verity-tw:triton-interpret
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4892,6 +6534,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:vul-flask
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
@@ -4906,9 +6553,16 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:wasm-pipeline
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: TerminalBench-original
+    difficulty: medium
+    category: software-engineering
 - name: winning-avg-corewars
   path: tasks/winning-avg-corewars/claude-opus-4.6/original_task
   domain:
@@ -4918,6 +6572,11 @@ entries:
   adapter_config:
     timeout: 180
     image: verity-tw:winning-avg-corewars
+    submission_path: /app/solve.sh
+    apply_command: cd /app && bash /app/solve.sh
+    test_command: cd /app && bash /tests/test.sh; _verity_s=$?; if [ -f /logs/verifier/reward.txt ]; then grep -qx 1 /logs/verifier/reward.txt; else exit $_verity_s; fi
+    limits:
+      network_disabled: false
   metadata:
     dockerfile: environment/Dockerfile
     source_benchmark: terminal-bench__2.0
