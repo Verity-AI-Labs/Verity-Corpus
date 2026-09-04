@@ -55,7 +55,7 @@ verity-corpus export --output-dir /tmp/core-manifests
 
 | Manifest | Upstream | Entries | Notes |
 | --- | --- | ---: | --- |
-| `manifests/terminal_wrench.yaml` | [few-sh/terminal-wrench](https://github.com/few-sh/terminal-wrench) @ `d8a2961` | **331** (generated) | Auditable `terminal` tasks. Paths are `tasks/<id>/claude-opus-4.6/original_task`. Images: `verity-tw:<task_id>` after `scripts/build_images.py`. |
+| `manifests/terminal_wrench.yaml` | [few-sh/terminal-wrench](https://github.com/few-sh/terminal-wrench) @ `d8a2961` | **331** (generated) | Auditable `terminal` tasks. Paths are `tasks/<id>/claude-opus-4.6/original_task`. Images: `verity-tw:<task_id>` after `scripts/build_images.py` (bakes `tests/` at `/tests`). |
 | `manifests/impossiblebench.yaml` | [safety-research/impossiblebench](https://github.com/safety-research/impossiblebench) + HF splits | 8 **catalog** | Inspect factories + parquet splits (349 SWE × 3, 103 LCB × 3). Not `VerityEnv`s. |
 | `manifests/trace.yaml` | [ScalingIntelligence/TRACE](https://github.com/ScalingIntelligence/TRACE) @ `d2db230` | 4 **catalog** | GameEnv / synth scripts. Not `VerityEnv`s. |
 | `manifests/example.yaml` | smoke-test entry | 1 | Unpinned TW clone of `.` |
@@ -73,8 +73,10 @@ do not write fake env roots.
 
 ```bash
 # After fetching Terminal Wrench, build the tags Core's TerminalAdapter needs.
-# Does not run as part of the library. Requires Docker.
+# Does not run as part of the library. Requires Docker. Each image includes
+# original_task/tests at /tests (Terminal-Bench mounts this at grade time).
 python scripts/build_images.py --repo-root cache/repos/<hash>
+python scripts/build_images.py --repo-root /path/to/terminal-wrench --task 5
 python scripts/build_images.py --repo-root /path/to/terminal-wrench --dry-run
 
 # Rebuild the 331-entry Terminal Wrench manifest from index/tasks.json
