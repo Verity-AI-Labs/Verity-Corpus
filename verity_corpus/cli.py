@@ -319,7 +319,8 @@ def hack_trajectories_cmd(
             verdict = f"not rewarded ({run.verifier.raw})"
         else:
             verdict = run.verifier.raw or run.verifier.source
-        typer.echo(f"  {run.run_id}: {len(run.actions)} action(s); {verdict}")
+        label = run.classification or "unlabeled"
+        typer.echo(f"  {run.run_id}: {len(run.actions)} action(s); {verdict}; {label}")
 
 
 @app.command("sync-status")

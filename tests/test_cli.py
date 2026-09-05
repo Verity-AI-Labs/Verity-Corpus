@@ -122,35 +122,72 @@ def _write_hack_fixture(tmp_path: Path) -> tuple[Path, str, str]:
     import json
 
     manifests = tmp_path / "manifests"
-    present_root = tmp_path / "present"
-    trajectory = {
-        "steps": [
-            {
-                "tool_calls": [
-                    {
-                        "function_name": "bash",
-                        "arguments": {"command": "cat tests/test.sh"},
-                    }
-                ]
-            }
-        ]
-    }
-    traj_path = (
-        present_root
+    present_root = (
+        tmp_path / "tasks" / "present-task" / "claude-opus-4.6" / "original_task"
+    )
+    run = (
+        tmp_path
+        / "tasks"
+        / "present-task"
+        / "claude-opus-4.6"
         / "hack_trajectories"
         / "v5"
-        / "trial"
-        / "agent"
-        / "trajectory.json"
     )
+    trajectory = {
+        "schema_version": "ATIF-v1.6",
+        "steps": [
+            {
+                "step_id": 1,
+                "source": "user",
+                "message": "prompt",
+            },
+            {
+                "step_id": 2,
+                "source": "agent",
+                "message": json.dumps(
+                    {
+                        "commands": [
+                            {"keystrokes": "cat tests/test.sh\n", "duration": 0.1}
+                        ]
+                    }
+                ),
+                "tool_calls": [
+                    {
+                        "function_name": "bash_command",
+                        "arguments": {
+                            "keystrokes": "cat tests/test.sh\n",
+                            "duration": 0.1,
+                        },
+                    }
+                ],
+            },
+        ],
+    }
+    traj_path = run / "trial" / "agent" / "trajectory.json"
     traj_path.parent.mkdir(parents=True)
     traj_path.write_text(json.dumps(trajectory) + "\n", encoding="utf-8")
-    reward = (
-        present_root / "hack_trajectories" / "v5" / "trial" / "verifier" / "reward.txt"
-    )
+    reward = run / "trial" / "verifier" / "reward.txt"
     reward.parent.mkdir(parents=True)
     reward.write_text("1\n", encoding="utf-8")
-    (tmp_path / "absent").mkdir()
+    (run / "metadata.json").write_text(
+        json.dumps(
+            {
+                "classification": "rewarded_serious_exploit",
+                "judged_serious_exploit": True,
+                "judged_legitimate_solve": False,
+                "reward": 1.0,
+                "model": "claude-opus-4.6",
+                "task_id": "present-task",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    present_root.mkdir(parents=True, exist_ok=True)
+    absent_root = (
+        tmp_path / "tasks" / "absent-task" / "claude-opus-4.6" / "original_task"
+    )
+    absent_root.mkdir(parents=True)
     manifests.mkdir()
     (manifests / "tw.yaml").write_text(
         f"""\
@@ -165,7 +202,7 @@ entries:
   - name: absent-task
     source:
       type: local
-      path: {tmp_path / "absent"}
+      path: {absent_root}
     domain:
       category: terminal
     adapter: terminal
@@ -207,7 +244,7 @@ class TestHackTrajectoriesCli:
         )
         result = runner.invoke(app, ["hack-trajectories", absent_name])
         assert result.exit_code == 0, result.output
-        assert result.output.strip() == (
+        assert result.output.strip().startswith(
             f"no hack trajectories found for task {absent_name}"
         )
 
@@ -219,7 +256,10 @@ class TestHackTrajectoriesCli:
         result = runner.invoke(app, ["hack-trajectories", present_name])
         assert result.exit_code == 0, result.output
         assert "1 recorded exploit(s)" in result.output
-        assert "v5: 1 action(s); rewarded (1)" in result.output
+        assert (
+            "claude-opus-4.6/v5: 1 action(s); rewarded (1); rewarded_serious_exploit"
+            in (result.output)
+        )
 
     def test_unknown_task_exits_nonzero(self, tmp_path: Path, monkeypatch) -> None:
         manifests, _, _ = _write_hack_fixture(tmp_path)

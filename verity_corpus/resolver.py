@@ -20,7 +20,6 @@ from verity_corpus.fetcher import cached_root, is_fetched
 from verity_corpus.hack_trajectories import (
     HackTrajectoryPresence,
     HackTrajectorySet,
-    absent_message,
     has_recorded_hacks,
     load_from_env_root,
 )
@@ -172,9 +171,10 @@ def load_hack_trajectories(
 ) -> HackTrajectorySet:
     """Read recorded exploits for ``entry`` from its fetched ``env_root``.
 
-    Same root :func:`resolve` uses (``cached_root``). Does not fetch. A missing
-    ``hack_trajectories/`` directory — the current sparse-checkout state —
-    returns an empty set with ``no hack trajectories found for task X``.
+    Same root :func:`resolve` uses (``cached_root``). Does not fetch. Walks
+    every ``<model>/hack_trajectories/<version>/`` tree under the task dir.
+    A missing tree — the current sparse-checkout state — returns an empty set
+    with a diagnostic ``no hack trajectories found for task X: …``.
     """
     root = Path(env_root) if env_root is not None else cached_root(entry, cache_dir)
     return load_from_env_root(root, task_id=entry.name, env_id=entry.id)
@@ -201,8 +201,9 @@ def inventory_hack_trajectories(
 ) -> list[HackTrajectoryPresence]:
     """Flag each non-catalog registry entry as having recorded exploits or not.
 
-    Uses directory presence only (no JSON parse) so it is cheap to run across
-    the 331 Terminal Wrench tasks before the trajectory data is fetched.
+    Counts version dirs whose ``metadata.json`` labels them as actual hacks
+    (not legitimate solves). Cheap enough to run across the 331 Terminal
+    Wrench tasks: metadata only, not the full ``trajectory.json``.
     """
     from verity_corpus.registry import CorpusRegistry
 
@@ -213,13 +214,19 @@ def inventory_hack_trajectories(
             continue
         env_root = cached_root(entry, cache_dir)
         present, count, hack_root = has_recorded_hacks(env_root)
+        if present:
+            message = ""
+        else:
+            message = load_from_env_root(
+                env_root, task_id=entry.name, env_id=entry.id
+            ).message
         rows.append(
             HackTrajectoryPresence(
                 task_id=entry.name,
                 env_id=entry.id,
                 present=present,
                 n_trajectories=count,
-                message="" if present else absent_message(entry.name),
+                message=message,
                 hack_root=str(hack_root) if hack_root is not None else "",
             )
         )
