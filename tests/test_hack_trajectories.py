@@ -9,11 +9,21 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from verity_corpus.hack_trajectories import (
     actions_from_trajectory_payload,
     has_recorded_hacks,
     load_from_env_root,
     locate_hack_trajectories_dir,
+)
+from verity_corpus.models.manifest import DomainTag, ManifestEntry, SourceSpec
+from verity_corpus.registry import CorpusRegistry
+from verity_corpus.resolver import (
+    ResolveError,
+    inventory_hack_trajectories,
+    load_hack_trajectories,
+    load_hack_trajectories_for_task,
 )
 
 
@@ -245,3 +255,113 @@ class TestAbsentDirectoryIsEmptyNotError:
         assert present is False
         assert count == 0
         assert hack_root is None
+
+
+def _local_entry(
+    env_root: Path,
+    *,
+    name: str,
+    status: str = "registered",
+    metadata: dict | None = None,
+) -> ManifestEntry:
+    env_root.mkdir(parents=True, exist_ok=True)
+    return ManifestEntry.create(
+        name=name,
+        source=SourceSpec(type="local", path=str(env_root)),
+        domain=DomainTag(category="terminal", subcategory="bash"),
+        adapter="terminal",
+        metadata=metadata or {"upstream_task_id": name},
+        status=status,  # type: ignore[arg-type]
+    )
+
+
+class TestResolverAndRegistryPath:
+    def test_load_via_entry_uses_cached_root(self, tmp_path: Path) -> None:
+        env_root = tmp_path / "task-5"
+        _harbor_run(
+            env_root / "hack_trajectories",
+            "v5",
+            commands=["cat tests/test.sh"],
+        )
+        entry = _local_entry(env_root, name="5")
+
+        loaded = load_hack_trajectories(entry, cache_dir=tmp_path / "unused-cache")
+
+        assert loaded.present is True
+        assert loaded.task_id == "5"
+        assert loaded.env_id == entry.id
+        assert loaded.trajectories[0].actions[0].command == "cat tests/test.sh"
+
+    def test_registry_lookup_by_name_and_id(self, tmp_path: Path) -> None:
+        manifests = tmp_path / "manifests"
+        env_root = tmp_path / "task-7"
+        _harbor_run(env_root / "hack_trajectories", "v5", commands=["ls /app"])
+        entry = _local_entry(env_root, name="7")
+        registry = CorpusRegistry(manifests)
+        registry.add_entry(entry, "tw.yaml")
+
+        by_name = load_hack_trajectories_for_task("7", registry=registry)
+        by_id = load_hack_trajectories_for_task(entry.id, registry=registry)
+        via_registry = registry.hack_trajectories("7")
+
+        assert by_name.present is True
+        assert by_id.present is True
+        assert via_registry.present is True
+        assert by_name.env_id == entry.id
+        assert [a.command for a in by_name.trajectories[0].actions] == ["ls /app"]
+
+    def test_unknown_task_id_raises(self, tmp_path: Path) -> None:
+        registry = CorpusRegistry(tmp_path / "manifests")
+        with pytest.raises(ResolveError, match="unknown task id 'nope'"):
+            load_hack_trajectories_for_task("nope", registry=registry)
+
+    def test_absent_fetched_task_is_flagged_empty(self, tmp_path: Path) -> None:
+        manifests = tmp_path / "manifests"
+        present_root = tmp_path / "present"
+        absent_root = tmp_path / "absent"
+        _harbor_run(present_root / "hack_trajectories", "v5", commands=["echo hack"])
+        present = _local_entry(present_root, name="present-task")
+        absent = _local_entry(absent_root, name="absent-task")
+        catalog = _local_entry(
+            tmp_path / "catalog", name="catalog-pointer", status="catalog"
+        )
+        registry = CorpusRegistry(manifests)
+        registry.add_entry(present, "tw.yaml")
+        registry.add_entry(absent, "tw.yaml")
+        registry.add_entry(catalog, "ib.yaml")
+
+        loaded = registry.hack_trajectories("absent-task")
+        assert loaded.present is False
+        assert loaded.trajectories == []
+        assert loaded.message == "no hack trajectories found for task absent-task"
+
+        rows = inventory_hack_trajectories(registry)
+        by_name = {row.task_id: row for row in rows}
+        assert "catalog-pointer" not in by_name
+        assert by_name["present-task"].present is True
+        assert by_name["present-task"].n_trajectories == 1
+        assert by_name["absent-task"].present is False
+        assert by_name["absent-task"].n_trajectories == 0
+        assert by_name["absent-task"].message == (
+            "no hack trajectories found for task absent-task"
+        )
+        via_registry = {row.task_id: row for row in registry.hack_trajectory_inventory()}
+        assert via_registry["present-task"].present is True
+        assert via_registry["absent-task"].present is False
+
+    def test_unfetched_git_entry_reports_absent(self, tmp_path: Path) -> None:
+        entry = ManifestEntry.create(
+            name="5",
+            source=SourceSpec(
+                type="git",
+                url="https://github.com/few-sh/terminal-wrench",
+                commit="d8a29613235a0ef56a8b70b3142626a533da28c2",
+                path="tasks/5/claude-opus-4.6/original_task",
+            ),
+            domain=DomainTag(category="terminal"),
+            adapter="terminal",
+        )
+        loaded = load_hack_trajectories(entry, cache_dir=tmp_path / "cache")
+        assert loaded.present is False
+        assert loaded.trajectories == []
+        assert loaded.message == "no hack trajectories found for task 5"

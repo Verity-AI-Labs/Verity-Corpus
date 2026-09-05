@@ -8,7 +8,7 @@ import pytest
 import yaml
 
 from verity_corpus.models.manifest import DomainTag, ManifestEntry, SourceSpec
-from verity_corpus.registry import CorpusRegistry, DuplicateEntryError
+from verity_corpus.registry import CorpusRegistry, DuplicateEntryError, RegistryError
 
 SHARED_YAML = """\
 source_defaults:
@@ -89,6 +89,65 @@ class TestCorpusRegistryQuery:
         entry = next(e for e in registry.all() if e.name == "inherited")
         assert registry.by_id(entry.id) is entry
         assert registry.by_id("missing") is None
+
+    def test_by_task_id_matches_name_and_env_id(self, registry: CorpusRegistry) -> None:
+        entry = next(e for e in registry.all() if e.name == "inherited")
+        assert registry.by_task_id(entry.id) is entry
+        assert registry.by_task_id("inherited") is entry
+        assert registry.by_task_id("missing") is None
+
+    def test_by_task_id_matches_upstream_task_id(self, tmp_path: Path) -> None:
+        _write(
+            tmp_path,
+            "tw.yaml",
+            """\
+entries:
+  - name: "5"
+    source:
+      type: local
+      path: /tmp/task-5
+    domain:
+      category: terminal
+    adapter: terminal
+    metadata:
+      upstream_task_id: "5"
+""",
+        )
+        registry = CorpusRegistry(tmp_path)
+        entry = registry.by_task_id("5")
+        assert entry is not None
+        assert entry.name == "5"
+        assert registry.by_task_id(entry.id) is entry
+
+    def test_by_task_id_ambiguous_name_raises(self, tmp_path: Path) -> None:
+        _write(
+            tmp_path,
+            "dup.yaml",
+            """\
+entries:
+  - name: twin
+    source:
+      type: git
+      url: https://github.com/example/a
+      commit: aaa
+      path: tasks/a
+    domain:
+      category: terminal
+    adapter: terminal
+  - name: twin
+    source:
+      type: git
+      url: https://github.com/example/b
+      commit: bbb
+      path: tasks/b
+    domain:
+      category: terminal
+    adapter: terminal
+""",
+        )
+        registry = CorpusRegistry(tmp_path)
+        with pytest.raises(RegistryError, match="ambiguous task id 'twin'"):
+            registry.by_task_id("twin")
 
     def test_by_domain(self, registry: CorpusRegistry) -> None:
         terminal = registry.by_domain("terminal")

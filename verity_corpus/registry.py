@@ -8,12 +8,15 @@ Entry-level source fields override those defaults.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 
 from verity_corpus import config
 from verity_corpus.models.manifest import ManifestEntry
+
+if TYPE_CHECKING:
+    from verity_corpus.hack_trajectories import HackTrajectoryPresence, HackTrajectorySet
 
 SOURCE_FIELDS = ("type", "url", "commit", "path")
 SCHEMA_FILENAME = "_schema.yaml"
@@ -127,6 +130,60 @@ class CorpusRegistry:
 
     def by_id(self, env_id: str) -> ManifestEntry | None:
         return self._entries.get(env_id)
+
+    def by_task_id(self, task_id: str) -> ManifestEntry | None:
+        """Look up by environment id, then unique name, then upstream task id.
+
+        RedTeam keys audits by ``entry.id``. Terminal Wrench rows also use
+        ``entry.name`` (and ``metadata['upstream_task_id']``) as the published
+        task id. Exact id wins. Ambiguous names raise :class:`RegistryError`.
+        """
+        found = self._entries.get(task_id)
+        if found is not None:
+            return found
+        by_name = [entry for entry in self._entries.values() if entry.name == task_id]
+        if len(by_name) == 1:
+            return by_name[0]
+        if len(by_name) > 1:
+            ids = ", ".join(entry.id for entry in by_name)
+            raise RegistryError(
+                f"ambiguous task id {task_id!r}: matches {len(by_name)} entries ({ids})"
+            )
+        by_upstream = [
+            entry
+            for entry in self._entries.values()
+            if str(entry.metadata.get("upstream_task_id") or "") == task_id
+        ]
+        if len(by_upstream) == 1:
+            return by_upstream[0]
+        if len(by_upstream) > 1:
+            ids = ", ".join(entry.id for entry in by_upstream)
+            raise RegistryError(
+                f"ambiguous task id {task_id!r}: matches {len(by_upstream)} entries ({ids})"
+            )
+        return None
+
+    def hack_trajectories(
+        self, task_id: str, cache_dir: Path | None = None
+    ) -> HackTrajectorySet:
+        """Load recorded exploits for ``task_id`` via the resolver (does not fetch)."""
+        from verity_corpus.resolver import load_hack_trajectories_for_task
+
+        kwargs: dict[str, Any] = {"registry": self}
+        if cache_dir is not None:
+            kwargs["cache_dir"] = cache_dir
+        return load_hack_trajectories_for_task(task_id, **kwargs)
+
+    def hack_trajectory_inventory(
+        self, cache_dir: Path | None = None
+    ) -> list[HackTrajectoryPresence]:
+        """Flag each non-catalog entry as having recorded exploits or not."""
+        from verity_corpus.resolver import inventory_hack_trajectories
+
+        kwargs: dict[str, Any] = {"registry": self}
+        if cache_dir is not None:
+            kwargs["cache_dir"] = cache_dir
+        return inventory_hack_trajectories(**kwargs)
 
     def by_domain(
         self, category: str, subcategory: str | None = None

@@ -17,6 +17,13 @@ from typing import Any
 
 from verity_corpus import config
 from verity_corpus.fetcher import cached_root, is_fetched
+from verity_corpus.hack_trajectories import (
+    HackTrajectoryPresence,
+    HackTrajectorySet,
+    absent_message,
+    has_recorded_hacks,
+    load_from_env_root,
+)
 from verity_corpus.models.manifest import ManifestEntry
 
 __all__ = [
@@ -26,6 +33,9 @@ __all__ = [
     "MissingInstructionsWarning",
     "ResolveError",
     "core_manifest",
+    "inventory_hack_trajectories",
+    "load_hack_trajectories",
+    "load_hack_trajectories_for_task",
     "resolve",
 ]
 
@@ -153,6 +163,67 @@ def _warn_if_image_missing(entry: ManifestEntry) -> None:
             UserWarning,
             stacklevel=3,
         )
+
+
+def load_hack_trajectories(
+    entry: ManifestEntry,
+    cache_dir: Path = config.CACHE_DIR,
+    env_root: Path | None = None,
+) -> HackTrajectorySet:
+    """Read recorded exploits for ``entry`` from its fetched ``env_root``.
+
+    Same root :func:`resolve` uses (``cached_root``). Does not fetch. A missing
+    ``hack_trajectories/`` directory — the current sparse-checkout state —
+    returns an empty set with ``no hack trajectories found for task X``.
+    """
+    root = Path(env_root) if env_root is not None else cached_root(entry, cache_dir)
+    return load_from_env_root(root, task_id=entry.name, env_id=entry.id)
+
+
+def load_hack_trajectories_for_task(
+    task_id: str,
+    registry: Any | None = None,
+    cache_dir: Path = config.CACHE_DIR,
+) -> HackTrajectorySet:
+    """Look up ``task_id`` on the registry (id or name) and load its exploits."""
+    from verity_corpus.registry import CorpusRegistry
+
+    index = registry if registry is not None else CorpusRegistry()
+    entry = index.by_task_id(task_id)
+    if entry is None:
+        raise ResolveError(f"unknown task id {task_id!r}")
+    return load_hack_trajectories(entry, cache_dir=cache_dir)
+
+
+def inventory_hack_trajectories(
+    registry: Any | None = None,
+    cache_dir: Path = config.CACHE_DIR,
+) -> list[HackTrajectoryPresence]:
+    """Flag each non-catalog registry entry as having recorded exploits or not.
+
+    Uses directory presence only (no JSON parse) so it is cheap to run across
+    the 331 Terminal Wrench tasks before the trajectory data is fetched.
+    """
+    from verity_corpus.registry import CorpusRegistry
+
+    index = registry if registry is not None else CorpusRegistry()
+    rows: list[HackTrajectoryPresence] = []
+    for entry in index.all():
+        if entry.status == "catalog":
+            continue
+        env_root = cached_root(entry, cache_dir)
+        present, count, hack_root = has_recorded_hacks(env_root)
+        rows.append(
+            HackTrajectoryPresence(
+                task_id=entry.name,
+                env_id=entry.id,
+                present=present,
+                n_trajectories=count,
+                message="" if present else absent_message(entry.name),
+                hack_root=str(hack_root) if hack_root is not None else "",
+            )
+        )
+    return rows
 
 
 def resolve(entry: ManifestEntry, cache_dir: Path = config.CACHE_DIR) -> Any:
