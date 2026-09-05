@@ -124,6 +124,10 @@ verity-corpus fetch --domain <category>
 # Smoke-test: fetch, resolve through a Core adapter, print the VerityEnv
 verity-corpus resolve <env-id>
 
+# Recorded Terminal Wrench exploits (does not fetch; missing dir is empty)
+verity-corpus hack-trajectories <task-id>
+verity-corpus hack-trajectories --inventory
+
 # Summary counts by domain and status (includes a Catalog column)
 verity-corpus status
 
@@ -136,6 +140,29 @@ verity-corpus sync-status
 
 `--adapter-config` is a JSON object. For `terminal` and `docker_test` it must
 include `"image"`.
+
+## Hack trajectories
+
+Terminal Wrench ships recorded reward-hacks under each task's
+`hack_trajectories/` directory (~3,632 across the 331 labeled-hackable tasks).
+That tree is deliberately left out of the local sparse checkout until a judge
+recall run needs it. The loader still exists now: given a task id it reads the
+fetched `env_root` RedTeam already resolves and returns, for each recorded
+exploit, the executed commands/actions and any final verifier outcome.
+
+The on-disk layout is an explicit assumption documented in
+`verity_corpus/hack_trajectories.py` (path candidates, `v5[_N]` run dirs,
+`trajectory.json`, `episode-N/`, `reward.txt`). Parsing lives only there so it
+is trivial to correct once the real files are present. A missing directory
+returns empty with `no hack trajectories found for task X` rather than raising.
+
+```python
+from verity_corpus.registry import CorpusRegistry
+
+registry = CorpusRegistry()
+loaded = registry.hack_trajectories("5")          # env id or TW task id
+rows = registry.hack_trajectory_inventory()       # present vs absent
+```
 
 ## Tests
 

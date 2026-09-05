@@ -246,6 +246,82 @@ def export(
         typer.echo(str(path))
 
 
+@app.command("hack-trajectories")
+def hack_trajectories_cmd(
+    task_id: Optional[str] = typer.Argument(
+        None,
+        help="Environment id or Terminal Wrench task id.",
+    ),
+    inventory: bool = typer.Option(
+        False,
+        "--inventory",
+        help="Flag every non-catalog task as having recorded exploits or not.",
+    ),
+    as_json: bool = typer.Option(False, "--json", help="Emit JSON."),
+) -> None:
+    """Load recorded hack trajectories for a task, or list present vs absent."""
+    from verity_corpus.resolver import (
+        ResolveError,
+        inventory_hack_trajectories,
+        load_hack_trajectories_for_task,
+    )
+
+    if inventory == bool(task_id):
+        typer.echo("Specify a task id or --inventory.", err=True)
+        raise typer.Exit(code=1)
+
+    registry = _registry()
+    if inventory:
+        rows = inventory_hack_trajectories(registry)
+        if as_json:
+            typer.echo(
+                json.dumps([row.model_dump(mode="json") for row in rows], indent=2)
+            )
+            return
+        if not rows:
+            typer.echo("No auditable environments.")
+            return
+        present_n = sum(1 for row in rows if row.present)
+        typer.echo(f"{'ID':<12}  {'Name':<40}  {'Exploits':<10}  Presence")
+        for row in rows:
+            count = str(row.n_trajectories) if row.present else "—"
+            presence = "present" if row.present else "absent"
+            typer.echo(
+                f"{row.env_id:<12}  {row.task_id:<40.40}  {count:<10}  {presence}"
+            )
+        typer.echo(
+            f"{present_n} present / {len(rows) - present_n} absent / {len(rows)} total"
+        )
+        return
+
+    try:
+        loaded = load_hack_trajectories_for_task(task_id, registry=registry)  # type: ignore[arg-type]
+    except ResolveError as exc:
+        typer.echo(f"error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+
+    if as_json:
+        typer.echo(loaded.model_dump_json(indent=2))
+        return
+    if not loaded.present:
+        typer.echo(loaded.message)
+        return
+    typer.echo(
+        f"{loaded.task_id} ({loaded.env_id}): "
+        f"{len(loaded.trajectories)} recorded exploit(s)"
+    )
+    for run in loaded.trajectories:
+        if run.verifier is None:
+            verdict = "no verifier outcome"
+        elif run.verifier.rewarded is True:
+            verdict = f"rewarded ({run.verifier.raw})"
+        elif run.verifier.rewarded is False:
+            verdict = f"not rewarded ({run.verifier.raw})"
+        else:
+            verdict = run.verifier.raw or run.verifier.source
+        typer.echo(f"  {run.run_id}: {len(run.actions)} action(s); {verdict}")
+
+
 @app.command("sync-status")
 def sync_status_cmd() -> None:
     """Set in-memory status to audited for every env that has a scorecard on disk."""

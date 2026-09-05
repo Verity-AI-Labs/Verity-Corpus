@@ -16,7 +16,10 @@ from verity_corpus import config
 from verity_corpus.models.manifest import ManifestEntry
 
 if TYPE_CHECKING:
-    from verity_corpus.hack_trajectories import HackTrajectoryPresence, HackTrajectorySet
+    from verity_corpus.hack_trajectories import (
+        HackTrajectoryPresence,
+        HackTrajectorySet,
+    )
 
 SOURCE_FIELDS = ("type", "url", "commit", "path")
 SCHEMA_FILENAME = "_schema.yaml"

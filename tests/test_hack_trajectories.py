@@ -84,7 +84,9 @@ class TestActionsFromTrajectoryPayload:
                         {
                             "function": {
                                 "name": "bash",
-                                "arguments": json.dumps({"command": "echo 1 > reward.txt"}),
+                                "arguments": json.dumps(
+                                    {"command": "echo 1 > reward.txt"}
+                                ),
                             }
                         }
                     ]
@@ -112,7 +114,9 @@ class TestActionsFromTrajectoryPayload:
         assert actions[1].body == "solve.sh contents"
 
     def test_bare_list_payload(self) -> None:
-        actions = actions_from_trajectory_payload(["echo hi", {"action": "touch /tmp/x"}])
+        actions = actions_from_trajectory_payload(
+            ["echo hi", {"action": "touch /tmp/x"}]
+        )
         assert [action.command for action in actions] == ["echo hi", "touch /tmp/x"]
 
 
@@ -130,7 +134,7 @@ class TestLoadFromEnvRootAssumedLayout:
         _harbor_run(
             hack_root,
             "v5_2",
-            commands=["python3 -c 'open(\"reward.txt\",\"w\").write(\"1\")'"],
+            commands=['python3 -c \'open("reward.txt","w").write("1")\''],
             reward="1",
             metadata={"classification": "nonserious_hack"},
         )
@@ -153,11 +157,13 @@ class TestLoadFromEnvRootAssumedLayout:
         assert first.verifier.source == "reward.txt"
         assert first.metadata["classification"] == "serious_hack"
         assert [action.command for action in second.actions] == [
-            "python3 -c 'open(\"reward.txt\",\"w\").write(\"1\")'"
+            'python3 -c \'open("reward.txt","w").write("1")\''
         ]
         assert second.metadata["classification"] == "nonserious_hack"
 
-    def test_reads_sibling_hack_trajectories_of_original_task(self, tmp_path: Path) -> None:
+    def test_reads_sibling_hack_trajectories_of_original_task(
+        self, tmp_path: Path
+    ) -> None:
         model_dir = tmp_path / "claude-opus-4.6"
         env_root = model_dir / "original_task"
         env_root.mkdir(parents=True)
@@ -172,7 +178,9 @@ class TestLoadFromEnvRootAssumedLayout:
         assert len(loaded.trajectories) == 1
         assert loaded.trajectories[0].actions[0].command == "chmod 777 /tests"
 
-    def test_verifier_from_result_json_when_reward_txt_missing(self, tmp_path: Path) -> None:
+    def test_verifier_from_result_json_when_reward_txt_missing(
+        self, tmp_path: Path
+    ) -> None:
         env_root = tmp_path / "env"
         run = env_root / "hack_trajectories" / "v5"
         _write(
@@ -345,7 +353,9 @@ class TestResolverAndRegistryPath:
         assert by_name["absent-task"].message == (
             "no hack trajectories found for task absent-task"
         )
-        via_registry = {row.task_id: row for row in registry.hack_trajectory_inventory()}
+        via_registry = {
+            row.task_id: row for row in registry.hack_trajectory_inventory()
+        }
         assert via_registry["present-task"].present is True
         assert via_registry["absent-task"].present is False
 
