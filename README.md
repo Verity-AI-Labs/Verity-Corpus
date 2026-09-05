@@ -143,18 +143,19 @@ include `"image"`.
 
 ## Hack trajectories
 
-Terminal Wrench ships recorded reward-hacks under each task's
-`hack_trajectories/` directory (~3,632 across the 331 labeled-hackable tasks).
-That tree is deliberately left out of the local sparse checkout until a judge
-recall run needs it. The loader still exists now: given a task id it reads the
-fetched `env_root` RedTeam already resolves and returns, for each recorded
-exploit, the executed commands/actions and any final verifier outcome.
+Terminal Wrench ships recorded reward-hacks at
+`tasks/<task_id>/<model>/hack_trajectories/<version>/` (~3,632 across the 331
+labeled-hackable tasks). That tree is left out of the local sparse checkout
+until a judge recall run needs it. Given a task id the loader walks every
+attacker-model directory under the fetched task root and returns, for each
+recorded **exploit**, the executed commands (ATIF-v1.6 `keystrokes`), the
+verifier reward, and the ground-truth `metadata.json` classification.
 
-The on-disk layout is an explicit assumption documented in
-`verity_corpus/hack_trajectories.py` (path candidates, `v5[_N]` run dirs,
-`trajectory.json`, `episode-N/`, `reward.txt`). Parsing lives only there so it
-is trivial to correct once the real files are present. A missing directory
-returns empty with `no hack trajectories found for task X` rather than raising.
+Only runs labeled as actual hacks (`rewarded_serious_exploit` and non-serious
+hack variants) are the positive set. A version dir with
+`judged_legitimate_solve: true` is not counted as one the judge is expected to
+catch. A missing tree returns `present=False` with a diagnostic message rather
+than raising.
 
 ```python
 from verity_corpus.registry import CorpusRegistry
